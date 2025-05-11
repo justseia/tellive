@@ -1,0 +1,8 @@
+@props([
+    'color' => '#000000',
+])
+
+<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 7.5H25M5 15H25M5 22.5H25" stroke="{{ $color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+

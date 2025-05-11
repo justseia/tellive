@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+    nginx:
+        container_name: tellive_nginx
+        image: nginx:latest
+        restart: always
+        ports:
+            - "80:80"
+#            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+            - /etc/letsencrypt:/etc/letsencrypt
+        depends_on:
+            - app
+        networks:
+            - tellive-admin
+
+    app:
+        container_name: tellive_app
+        restart: always
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        expose:
+            - "9000"
+        volumes:
+            - ./:/var/www
+            - /etc/letsencrypt:/etc/letsencrypt
+        depends_on:
+            - db
+        networks:
+            - tellive-admin
+
+    db:
+        container_name: tellive_db
+        image: postgres:16.0
+        restart: always
+        environment:
+            - POSTGRES_DB=tellive
+            - POSTGRES_USER=tellive
+            - POSTGRES_PASSWORD=tellive2024
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./:/var/www
+            - db:/var/lib/postgresql/data
+        networks:
+            - tellive-admin
+
+networks:
+    tellive-admin:
+        driver: bridge
+
+volumes:
+    db:
+        driver: local
+
+#    sudo apt-get install certbot python3-certbot-nginx
+#    apk add certbot certbot-nginx
+#    certbot --nginx -d tellive.kz -d www.tellive.kz

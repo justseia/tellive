@@ -9,10 +9,10 @@
                     <div class="font-medium text-[20px]">Жулдыз Кульжабекова</div>
                 </div>
                 <div class="flex gap-[10px] mb-0 md:mb-[16px]">
-                    <div class="py-[6px] px-[10px] rounded-[6px] bg-[#5A6472]/5">
+                    <div class="py-[6px] px-[10px] rounded-[6px] bg-[#5A6472]/5 text-center">
                         <div class="text-[#5A6472]/70 font-medium text-[11px] md:text-[12px]">Партнёр inCruises</div>
                     </div>
-                    <div class="py-[6px] px-[10px] rounded-[6px] bg-[#5A6472]/5">
+                    <div class="py-[6px] px-[10px] rounded-[6px] bg-[#5A6472]/5 text-center">
                         <div class="text-[#5A6472]/70 font-medium text-[11px] md:text-[12px]">Амбассадор Tellive</div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                                     <div class="text-white font-medium md:text-[14px] text-[11px]">Как выбрать круиз?</div>
                                 </div>
                                 <div class="absolute top-[16px] right-[16px]">
-                                    <img src="{{ asset('assets/icons/link.svg') }}" alt="img">
+                                    @include('icons.link')
                                 </div>
                             </div>
                         </div>
@@ -74,28 +74,15 @@
     </div>
     <hr class="border-b border-[#D7DADF]/30 mx-[16px] md:mx-[40px]"/>
     <div class="pt-[30px] md:pt-[50px] pb-[30px] md:pb-[60px]">
-        <div class="mb-[26px] md:mb-[36px] flex justify-between items-center px-[16px] md:px-[40px]">
+        <div class="mb-[26px] md:mb-[36px] flex gap-[15px] justify-between items-center px-[16px] md:px-[40px]">
             <div class="font-medium text-[20px] md:text-[26px] text-[#0B131D]">Видео про inCruises</div>
-            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px]">Все видео</a>
+            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px] text-end text-nowrap">Все видео</a>
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[40px]">
                 @forelse(range(1, 5) as $story)
                     <a href="">
-                        <div class="w-[273px] md:w-[343px] shrink-0">
-                            <div class="relative h-[153px] md:h-[193px] rounded-[10px] overflow-hidden mb-[10px]">
-                                <img src="https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
-                                <div class="absolute w-full h-full bg-black/30"></div>
-                                <div class="absolute top-1/2 left-1/2 -translate-1/2 bg-white/80 w-[40px] h-[40px] rounded-full flex items-center justify-center">
-                                    <img src="{{ asset('assets/icons/play.svg') }}" alt="img">
-                                </div>
-                            </div>
-                            <div class="w-full">
-                                <div class="font-medium text-[14px] md:text-[16px] text-black">
-                                    Все про inCruises — за 1 мин. Как начать копить и с чего начать
-                                </div>
-                            </div>
-                        </div>
+                        <x-admin.video-card/>
                     </a>
                 @empty
                     <a href="" class="w-full">
@@ -107,38 +94,15 @@
     </div>
     <hr class="border-b border-[#D7DADF]/30 mx-[16px] md:mx-[40px]"/>
     <div class="pt-[50px] pb-[60px]">
-        <div class="mb-[26px] md:mb-[36px] flex justify-between items-center px-[16px] md:px-[40px]">
+        <div class="mb-[26px] md:mb-[36px] flex gap-[15px] justify-between items-center px-[16px] md:px-[40px]">
             <div class="font-medium text-[20px] md:text-[26px] text-[#0B131D]">Истории жизни в inCruises</div>
-            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px]">Все истории</a>
+            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px] text-end text-nowrap">Все истории</a>
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[40px]">
                 @forelse(range(1, 5) as $story)
                     <a href="">
-                        <div class="w-[276px] md:w-[356px] shrink-0">
-                            <img src="https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg" alt="img" class="rounded-[16px] h-[155px] md:h-[200px] top-0 left-0 w-full mb-[10px] object-cover object-center">
-                            <div class="w-full rounded-[16px] bg-[#F9F9F9] pb-[30px] p-[20px]">
-                                <div class="flex justify-between mb-[16px]">
-                                    <div class="font-medium text-[13px] md:text-[14px] text-[#9EA9B7]">11 апр 2025</div>
-                                    <div class="flex gap-[26px] items-center">
-                                        <div class="flex gap-[8px] items-center">
-                                            <img src="{{ asset('assets/icons/views.svg') }}" alt="img">
-                                            <div class="font-medium text-[13px] md:text-[14px] text-[#9EA9B7]">679</div>
-                                        </div>
-                                        <img src="{{ asset('assets/icons/three-dot.svg') }}" alt="img">
-                                    </div>
-                                </div>
-                                <div class="flex flex-col">
-                                    <div class="mb-[12px] md:mb-[20px]">
-                                        <div class="font-medium text-[16px] md:text-[18px] text-[#0B131D]">Мой первый круиз ✨</div>
-                                    </div>
-                                    <div class="mb-[16px]">
-                                        <div class="font-medium text-[14px] md:text-[15px] text-[#5A6472]">Впервые в жизни мы с мужем поехали за границу, вместе с друзьями. Детей оставили дома, хотели сначала увидеть все сами...</div>
-                                    </div>
-                                    <div class="font-medium text-[14px] md:text-[16px] text-[#9EA9B7]">Читать историю</div>
-                                </div>
-                            </div>
-                        </div>
+                        <x-admin.history-card/>
                     </a>
                 @empty
                     <a href="" class="w-full">
@@ -150,9 +114,9 @@
     </div>
     <hr class="border-b border-[#D7DADF]/30 mx-[16px] md:mx-[40px]"/>
     <div class="pt-[50px] pb-[60px]">
-        <div class="mb-[26px] md:mb-[36px] flex justify-between items-center px-[16px] md:px-[40px]">
+        <div class="mb-[26px] md:mb-[36px] flex gap-[15px] justify-between items-center px-[16px] md:px-[40px]">
             <div class="font-medium text-[20px] md:text-[26px] text-[#0B131D]">Истории жизни в inCruises</div>
-            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px]">Все истории</a>
+            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px] text-end text-nowrap">Все истории</a>
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[40px]">

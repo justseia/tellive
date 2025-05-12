@@ -4,27 +4,27 @@
             <div class="font-medium text-[15px] text-[#9CA2AA]">Основное:</div>
         </div>
         <div class="flex flex-col gap-[6px] md:gap-[10px]">
-            <a href="#">
+            <a href="{{ route('admin.profile.index') }}">
                 <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.profile.*') ? 'bg-[#F9F9FB]' : '' }}">
                     <img src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="img" class="rounded-full w-[24px] h-[24px]">
                     <div class="font-medium text-[15px] text-[#5A6472]">Профиль</div>
                 </div>
             </a>
-            <a href="#">
-                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.profile.*') ? 'bg-[#F9F9FB]' : '' }}">
-                    <img src="{{ asset('assets/icons/history.svg') }}" alt="img">
+            <a href="{{ route('admin.history.index') }}">
+                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.history.*') ? 'bg-[#F9F9FB]' : '' }}">
+                    @include('icons.history')
                     <div class="font-medium text-[15px] text-[#5A6472]">Истории</div>
                 </div>
             </a>
-            <a href="#">
-                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
-                    <img src="{{ asset('assets/icons/video.svg') }}" alt="img">
+            <a href="{{ route('admin.video.index') }}">
+                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.video.*') ? 'bg-[#F9F9FB]' : '' }}">
+                    @include('icons.video')
                     <div class="font-medium text-[15px] text-[#5A6472]">Видео</div>
                 </div>
             </a>
             <a href="#">
                 <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
-                    <img src="{{ asset('assets/icons/review.svg') }}" alt="img">
+                    @include('icons.review')
                     <div class="font-medium text-[15px] text-[#5A6472]">Отзывы</div>
                 </div>
             </a>
@@ -37,25 +37,25 @@
         <div class="flex flex-col gap-[10px]">
             <a href="#">
                 <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
-                    <img src="{{ asset('assets/icons/history.svg') }}" alt="img">
+                    @include('icons.history')
                     <div class="font-medium text-[15px] text-[#5A6472]">Кабинет</div>
                 </div>
             </a>
             <a href="#">
                 <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
-                    <img src="{{ asset('assets/icons/video.svg') }}" alt="img">
+                    @include('icons.video')
                     <div class="font-medium text-[15px] text-[#5A6472]">Клиенты</div>
                 </div>
             </a>
             <a href="#">
                 <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
-                    <img src="{{ asset('assets/icons/review.svg') }}" alt="img">
+                    @include('icons.review')
                     <div class="font-medium text-[15px] text-[#5A6472]">Подписка</div>
                 </div>
             </a>
             <a href="#">
                 <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
-                    <img src="{{ asset('assets/icons/profile.svg') }}" alt="img">
+                    @include('icons.profile')
                     <div class="font-medium text-[15px] text-[#5A6472]">Редактор</div>
                 </div>
             </a>

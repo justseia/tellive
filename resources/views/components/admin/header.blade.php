@@ -1,5 +1,5 @@
 <div x-data="{ open: false }" x-effect="document.body.classList.toggle('overflow-hidden', open)">
-    <header class="flex items-center justify-between md:hidden w-full h-[54px] bg-white px-[16px]">
+    <header class="flex items-center justify-between lg:hidden w-full h-[54px] bg-white px-[16px]">
         <div class="max-h-[36px]">
             @include('icons.logo')
         </div>

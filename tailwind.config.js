@@ -2,8 +2,8 @@ export default {
     content: [],
     theme: {
         extend: {
-            colors: {
-                primary: '#246BFD'
+            fontFamily: {
+                sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             },
         },
     },

@@ -33,10 +33,23 @@
                     Написать мне
                 </button>
             </div>
-            <div class="text-[#717171]">
-                Когда я отправилась в первый круиз, поняла: свобода — это не про деньги.
-                Это про разрешение себе жить. В этом всём — не просто круизы.
-                еще...
+            <div x-data="{ expanded: false, scrollHeight: 0 }" x-init="scrollHeight = $refs.text.scrollHeight" class="relative text-[#717171]">
+                <div x-ref="text" x-bind:style="expanded ? `max-height: ${scrollHeight}px` : 'max-height: 3em'" class="overflow-hidden transition-all duration-500 ease-in-out">
+                    Когда я отправилась в первый круиз, поняла: свобода — это не про деньги.
+                    <br>
+                    Это про разрешение себе жить. В этом всём — не просто круизы.
+                    <br>
+                    Это про разрешение себе жить. В этом всём — не просто круизы.
+                    <br>
+                    Это про разрешение себе жить. В этом всём — не просто круизы.
+                    <br>
+                    Это про разрешение себе жить. В этом всём — не просто круизы.
+                </div>
+                <div x-show="!expanded" x-transition.opacity class="pointer-events-none absolute bottom-8 left-0 w-full h-6 bg-gradient-to-b from-transparent to-white"></div>
+                <button @click="expanded = !expanded" class="mt-2 text-[#757575]/40 relative z-10">
+                    <span x-show="!expanded">ещё...</span>
+                    <span x-show="expanded">скрыть</span>
+                </button>
             </div>
         </div>
     </div>
@@ -122,23 +135,7 @@
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[40px]">
                 @forelse(range(1, 5) as $story)
                     <a href="">
-                        <div class="relative h-[360px] w-[262px] rounded-[10px] overflow-hidden shrink-0">
-                            <div class="relative w-full h-full">
-                                <img src="https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
-                                <div class="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                            </div>
-                            <div class="absolute top-0 bottom-0 w-full p-[20px] flex flex-col justify-between">
-                                <div class="px-[10px] py-[8px] rounded-[6px] bg-[#0A0908]/60 w-fit">
-                                    <div class="font-normal text-[14px] text-white">Поездка с родителями</div>
-                                </div>
-                                <div class="flex flex-col">
-                                    <div class="mb-[10px]">
-                                        <div class="font-medium text-[17px] text-white">Алия • Саяк</div>
-                                    </div>
-                                    <div class="font-normal text-[14px] text-white">Незабываемое путешествие в Европе с друзьями</div>
-                                </div>
-                            </div>
-                        </div>
+                        <x-admin.review-card/>
                     </a>
                 @empty
                     <a href="" class="w-full">

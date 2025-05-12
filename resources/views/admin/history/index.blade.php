@@ -5,7 +5,7 @@
         <div class="mb-[30px]">
             <div class="font-medium text-[20px] md:text-[28px] text-[#0B131D]">Истории</div>
         </div>
-        <a href="" class="inline-block">
+        <a href="{{ route('admin.history.create') }}" class="inline-block">
             <div class="flex items-center w-fit gap-[12px] rounded-[6px] border border-[#E8E8E8] bg-[#F9F9F9] py-[8px] px-[20px]">
                 @include('icons.plus', ['color' => '#0B131D'])
                 <div class="font-medium text-[14px] md:text-[15px] text-[#0B131D]">Создать историю</div>
@@ -19,7 +19,7 @@
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px]">
                 @forelse(range(1, 5) as $story)
-                    <a href="">
+                    <a href="{{ route('admin.history.show', 1) }}">
                         <x-admin.history-card/>
                     </a>
                 @empty

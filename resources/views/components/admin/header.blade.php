@@ -1,8 +1,6 @@
 <div x-data="{ open: false }" x-effect="document.body.classList.toggle('overflow-hidden', open)">
-    <header class="flex items-center justify-between lg:hidden w-full h-[54px] bg-white px-[16px]">
-        <div class="max-h-[36px]">
-            @include('icons.logo')
-        </div>
+    <header class="flex items-center justify-between lg:hidden w-full h-[54px] md:h-[80px] border-b border-[#D7DADF]/30 bg-white px-[16px]">
+        @include('icons.logo', ['class' => 'h-[36px] w-auto'])
         <div @click="open = true">
             @include('icons.three-line')
         </div>

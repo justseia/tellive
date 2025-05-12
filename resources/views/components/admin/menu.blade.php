@@ -22,8 +22,8 @@
                     <div class="font-medium text-[15px] text-[#5A6472]">Видео</div>
                 </div>
             </a>
-            <a href="#">
-                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
+            <a href="{{ route('admin.review.index') }}">
+                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.review.*') ? 'bg-[#F9F9FB]' : '' }}">
                     @include('icons.review')
                     <div class="font-medium text-[15px] text-[#5A6472]">Отзывы</div>
                 </div>

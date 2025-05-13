@@ -9,15 +9,13 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans flex h-fit md:h-screen">
+    <body class="font-sans flex h-dvh">
         <x-admin.aside/>
 
-        <main class="flex-1 overflow-y-auto overflow-x-hidden">
+        <main class="flex-1 overflow-y-auto overflow-x-hidden flex flex-col">
             <x-admin.header/>
 
-            {{--            <div class="flex flex-col-reverse">--}}
             @yield('content')
-            {{--            </div>--}}
         </main>
 
         @stack('scripts')

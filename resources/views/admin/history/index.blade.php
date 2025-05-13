@@ -17,7 +17,7 @@
             <div class="font-medium text-[20px] text-[#0B131D]">Мои истории</div>
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
-            <div class="flex min-w-max gap-[20px] px-[16px]">
+            <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
                 @forelse(range(1, 5) as $story)
                     <a href="{{ route('admin.history.show', 1) }}">
                         <x-admin.history-card/>
@@ -30,14 +30,14 @@
             </div>
         </div>
     </div>
-    <hr class="border-b border-[#D7DADF]/30 mx-[16px] md:mx-[40px]"/>
+    <hr class="border-b border-[#D7DADF]/30 mx-[16px] md:mx-[30px]"/>
     <div class="pt-[30px] md:pt-[50px] pb-[30px] md:pb-[60px]">
-        <div class="mb-[26px] flex justify-between items-center px-[16px]">
+        <div class="mb-[26px] flex justify-between items-center px-[16px] md:px-[30px]">
             <div class="font-medium text-[20px] text-[#0B131D]">Избранные истории</div>
             <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] text-end text-nowrap">Истории партнеров</a>
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
-            <div class="flex min-w-max gap-[20px] px-[16px]">
+            <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
                 @forelse(range(1, 5) as $story)
                     <a href="">
                         <x-admin.history-card/>
@@ -50,14 +50,14 @@
             </div>
         </div>
     </div>
-    <hr class="border-b border-[#D7DADF]/30 mx-[16px] md:mx-[40px]"/>
+    <hr class="border-b border-[#D7DADF]/30 mx-[16px] md:mx-[30px]"/>
     <div class="pt-[30px] md:pt-[50px] pb-[30px] md:pb-[60px]">
         <div class="mb-[26px] flex gap-[16px] items-center px-[16px]">
             <div class="font-medium text-[20px] text-[#0B131D]">Подборка историй Tellive</div>
             @include('icons.down')
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
-            <div class="flex min-w-max gap-[20px] px-[16px]">
+            <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
                 @forelse(range(1, 5) as $story)
                     <a href="">
                         <x-admin.history-card/>

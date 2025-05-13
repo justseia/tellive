@@ -21,7 +21,7 @@
     </div>
     <div class="pb-[30px] md:pb-[40px]">
         <div class="hide-scrollbar w-full overflow-x-auto">
-            <div class="flex min-w-max gap-[20px] px-[16px] md:px-[40px]">
+            <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
                 @forelse(range(1, 5) as $story)
                     <a href="">
                         <x-admin.review-card/>

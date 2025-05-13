@@ -35,26 +35,20 @@
             <div class="font-medium text-[15px] text-[#9CA2AA]">Управление:</div>
         </div>
         <div class="flex flex-col gap-[10px]">
-            <a href="#">
-                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
+            <a href="{{ route('admin.office.index') }}">
+                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.office.*') ? 'bg-[#F9F9FB]' : '' }}">
                     @include('icons.history')
                     <div class="font-medium text-[15px] text-[#5A6472]">Кабинет</div>
                 </div>
             </a>
-            <a href="#">
-                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
+            <a href="{{ route('admin.client.index') }}">
+                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.client.*') ? 'bg-[#F9F9FB]' : '' }}">
                     @include('icons.video')
                     <div class="font-medium text-[15px] text-[#5A6472]">Клиенты</div>
                 </div>
             </a>
-            <a href="#">
-                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
-                    @include('icons.review')
-                    <div class="font-medium text-[15px] text-[#5A6472]">Подписка</div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px]">
+            <a href="{{ route('admin.editor.index') }}">
+                <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.editor.*') ? 'bg-[#F9F9FB]' : '' }}">
                     @include('icons.profile')
                     <div class="font-medium text-[15px] text-[#5A6472]">Редактор</div>
                 </div>

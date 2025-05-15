@@ -2,8 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\Client;
+use App\Models\History;
+use App\Models\HistoryBlock;
+use App\Models\HistoryFavorite;
+use App\Models\Review;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\UserInfo;
+use App\Models\Video;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +21,77 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        foreach (range(1, 5) as $index) {
+            User::query()->create([
+                'first_name' => 'Seia' . $index,
+                'last_name' => 'Seia' . $index,
+                'subdomain' => 'seia' . $index,
+                'about_me' => 'lorem ipsum dolor sit amet',
+                'email' => 'test@example.com' . $index,
+                'password' => bcrypt('asdasdasd'),
+            ]);
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach (range(1, 5) as $index) {
+            History::query()->create([
+                'type' => 'public' . $index,
+                'views' => 100,
+                'title' => 'Title',
+                'date' => '2025-05-06',
+                'image_url' => 'https://via.placeholder.com/100x100',
+                'type_of_history' => 'theme',
+                'user_id' => User::query()->inRandomOrder()->first()->id,
+            ]);
+        }
+
+        foreach (range(1, 5) as $index) {
+            UserInfo::query()->create([
+                'value' => '2026',
+                'type' => 'public' . $index,
+                'user_id' => User::query()->inRandomOrder()->first()->id,
+            ]);
+        }
+
+        foreach (range(1, 5) as $index) {
+            Client::query()->create([
+                'full_name' => 'public' . $index,
+                'type' => 'qwe',
+                'tariff' => 'Premium',
+            ]);
+        }
+
+        foreach (range(1, 5) as $index) {
+            Video::query()->create([
+                'title' => 'public' . $index,
+                'image_url' => 'https://via.placeholder.com/100x100',
+                'youtube_url' => 'https://www.youtube.com/embed/public' . $index,
+            ]);
+        }
+
+        foreach (range(1, 5) as $index) {
+            Review::query()->create([
+                'title' => 'public' . $index,
+                'description' => 'public' . $index,
+                'image_url' => 'https://via.placeholder.com/100x100',
+                'type_of_travel' => 'public' . $index,
+                'youtube_url' => 'https://www.youtube.com/embed/public' . $index,
+            ]);
+        }
+
+        foreach (range(1, 5) as $index) {
+            HistoryBlock::query()->create([
+                'text' => 'public' . $index,
+                'images_url' => 'https://via.placeholder.com/100x100',
+                'youtube_url' => 'https://www.youtube.com/embed/public' . $index,
+                'history_id' => History::query()->inRandomOrder()->first()->id,
+            ]);
+        }
+
+        foreach (range(1, 5) as $index) {
+            HistoryFavorite::query()->create([
+                'user_id' => User::query()->inRandomOrder()->first()->id,
+                'history_id' => History::query()->inRandomOrder()->first()->id,
+            ]);
+        }
     }
 }

@@ -19,5 +19,6 @@
         </main>
 
         @stack('scripts')
+        @stack('modal')
     </body>
 </html>

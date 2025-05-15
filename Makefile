@@ -15,3 +15,6 @@ c:
 
 dk:
 	docker kill $$(docker ps -q)
+
+f:
+	php artisan migrate:fresh --seed

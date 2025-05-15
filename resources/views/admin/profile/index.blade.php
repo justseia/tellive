@@ -6,7 +6,7 @@
             <img src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="img" class="h-[70px] w-[70px] md:h-[130px] md:w-[130px] rounded-full object-cover object-center shrink-0">
             <div class="flex flex-col">
                 <div class="mb-[8px]">
-                    <div class="font-medium text-[20px]">Жулдыз Кульжабекова</div>
+                    <div class="font-medium text-[20px]">{{ $user->first_name . ' ' . $user->last_name }}</div>
                 </div>
                 <div class="flex gap-[10px] mb-0 md:mb-[16px]">
                     <div class="py-[6px] px-[10px] rounded-[6px] bg-[#5A6472]/5 text-center">
@@ -26,24 +26,24 @@
         </div>
         <div class="flex flex-col">
             <div class="flex gap-[12px] mb-[20px]">
-                <button type="button" class="bg-[#2272DD] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-white">
+                <a href="{{ $siteUrl }}" class="bg-[#2272DD] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-white">
                     Открыть сайт
-                </button>
-                <button type="button" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
-                    Написать мне
-                </button>
+                </a>
+
+                <div x-data="{ writeMeOpen: false }">
+                    <button @click="writeMeOpen = true" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
+                        Написать мне
+                    </button>
+
+                    <x-admin.modal key="writeMeOpen">
+                        seia
+                    </x-admin.modal>
+                </div>
+
             </div>
             <div x-data="{ expanded: false, scrollHeight: 0 }" x-init="scrollHeight = $refs.text.scrollHeight" class="relative text-[#717171]">
                 <div x-ref="text" x-bind:style="expanded ? `max-height: ${scrollHeight}px` : 'max-height: 3em'" class="overflow-hidden transition-all duration-500 ease-in-out">
-                    Когда я отправилась в первый круиз, поняла: свобода — это не про деньги.
-                    <br>
-                    Это про разрешение себе жить. В этом всём — не просто круизы.
-                    <br>
-                    Это про разрешение себе жить. В этом всём — не просто круизы.
-                    <br>
-                    Это про разрешение себе жить. В этом всём — не просто круизы.
-                    <br>
-                    Это про разрешение себе жить. В этом всём — не просто круизы.
+                    {{ $user->about_me }}
                 </div>
                 <div x-show="!expanded" x-transition.opacity class="pointer-events-none absolute bottom-8 left-0 w-full h-6 bg-gradient-to-b from-transparent to-white"></div>
                 <button @click="expanded = !expanded" class="mt-2 text-[#757575]/40 relative z-10">
@@ -62,20 +62,7 @@
             <div class="flex min-w-max gap-[12px] md:gap-[20px] px-[16px] md:px-[40px]">
                 @forelse(range(1, 10) as $story)
                     <a href="">
-                        <div class="border-[1.5px] border-[#2272DD] rounded-[14px] p-[5px] shrink-0">
-                            <div class="relative rounded-[10px] overflow-hidden">
-                                <div class="relative h-[110px] w-[110px] md:h-[158px] md:w-[158px]">
-                                    <img src="https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
-                                    <div class="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                                </div>
-                                <div class="absolute left-0 bottom-0 p-[16px]">
-                                    <div class="text-white font-medium md:text-[14px] text-[11px]">Как выбрать круиз?</div>
-                                </div>
-                                <div class="absolute top-[16px] right-[16px]">
-                                    @include('icons.link')
-                                </div>
-                            </div>
-                        </div>
+                        <x-admin.story/>
                     </a>
                 @empty
                     <a href="" class="w-full">

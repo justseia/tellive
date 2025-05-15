@@ -8,8 +8,14 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        return view('admin.profile.index');
+        $user = app('user');
+        $baseDomain = config('app.base_url');
+        $siteUrl = $request->getScheme() . '://' . $user->subdomain . '.' . $baseDomain;
+
+        return view('admin.profile.index')
+            ->with(compact('user'))
+            ->with(compact('siteUrl'));
     }
 }

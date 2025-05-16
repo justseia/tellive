@@ -19,13 +19,13 @@
                         <div class="text-[15px] font-medium text-[#9EA9B7]">Tellive — №1 инструмент для партнера inCruises</div>
                     </div>
                     <div class="flex flex-col gap-[20px] mb-[10px]">
-                        <input type="email" class="border border-[#DBDFE9] h-[46px] rounded-[4px] px-[16px] text-[15px] bg-[#FCFCFC] placeholder:text-[#9EA9B7]" placeholder="Ваша почта" required>
-                        <input type="password" minlength="8" class="border border-[#DBDFE9] h-[46px] rounded-[4px] px-[16px] text-[15px] bg-[#FCFCFC] placeholder:text-[#9EA9B7]" placeholder="Пароль" required>
+                        <input name="email" type="email" class="border border-[#DBDFE9] h-[46px] rounded-[4px] px-[16px] text-[15px] bg-[#FCFCFC] placeholder:text-[#9EA9B7]" placeholder="Ваша почта" required>
+                        <input name="password" type="password" minlength="8" class="border border-[#DBDFE9] h-[46px] rounded-[4px] px-[16px] text-[15px] bg-[#FCFCFC] placeholder:text-[#9EA9B7]" placeholder="Пароль" required>
                     </div>
                     <div class="flex justify-between mb-[30px]">
                         <label>
                             <span class="flex items-center gap-[10px]">
-                                <input type="checkbox" class="rounded-[3px] w-[16px] h-[16px] border-[#8B919F] checked:border-[#2272DD]">
+                                <input name="remember" type="checkbox" class="rounded-[3px] w-[16px] h-[16px] border-[#8B919F] checked:border-[#2272DD]">
                                 <span class="font-medium text-[14px] text-[#9EA9B7]">Запомнить меня</span>
                             </span>
                         </label>

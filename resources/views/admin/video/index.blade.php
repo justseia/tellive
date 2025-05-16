@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="mb-[30px]">
-            <a href="" class="inline-block">
+            <a href="{{ route('admin.video.create') }}" class="inline-block">
                 <div class="flex items-center w-fit gap-[12px] rounded-[6px] border border-[#E8E8E8] bg-[#F9F9F9] py-[8px] px-[20px]">
                     @include('icons.plus', ['color' => '#0B131D'])
                     <div class="font-medium text-[14px] md:text-[15px] text-[#0B131D]">Добавить видео</div>
@@ -21,9 +21,9 @@
             </a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[20px] gap-y-[30px] md:gap-y-[50px]">
-            @forelse(range(1, 9) as $story)
-                <a href="">
-                    <x-admin.video-card width="w-full" height="h-[185px]"/>
+            @forelse($videos as $video)
+                <a href="{{ $video->youtube_url }}" target="_blank">
+                    <x-admin.video-card width="w-full" height="h-[185px]" :video="$video"/>
                 </a>
             @empty
                 <div class="bg-[#F9F9F9] rounded-[6px] h-[48px] md:h-[59px] col-span-full flex items-center justify-center w-full">

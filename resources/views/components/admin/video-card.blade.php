@@ -1,11 +1,12 @@
 @props([
     'width' => 'w-[273px] md:w-[343px]',
     'height' => 'h-[153px] md:h-[193px]',
+    'video' => null,
 ])
 
 <div class="{{ $width }} shrink-0">
     <div class="{{ $height }} relative rounded-[10px] overflow-hidden mb-[10px]">
-        <img src="https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
+        <img src="{{ $video->image_url }}" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
         <div class="absolute w-full h-full bg-black/30"></div>
         <div class="absolute top-1/2 left-1/2 -translate-1/2 bg-white/80 w-[40px] h-[40px] rounded-full flex items-center justify-center">
             @include('icons.play')
@@ -13,7 +14,7 @@
     </div>
     <div class="w-full">
         <div class="font-medium text-[14px] md:text-[16px] text-black">
-            Все про inCruises — за 1 мин. Как начать копить и с чего начать
+            {{ $video->title }}
         </div>
     </div>
 </div>

@@ -5,30 +5,21 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class CheckSubdomain
+class SubdomainCheck
 {
     public function handle(Request $request, Closure $next): Response
     {
+        Auth::login(User::query()->first());
+
         $host = $request->getHost();
         $baseDomain = config('app.base_url');
 
         if (str_ends_with($host, '.' . $baseDomain)) {
             $subdomain = str_replace('.' . $baseDomain, '', $host);
-
-            if (auth()->check()) {
-                $authUserSubdomain = auth()->user()->subdomain;
-
-                if ($authUserSubdomain !== $subdomain) {
-                    $correctUrl = $request->getScheme() . '://' . $authUserSubdomain . '.' . $baseDomain . $request->getRequestUri();
-                    return redirect()->to($correctUrl);
-                }
-
-                app()->instance('user', auth()->user());
-                return $next($request);
-            }
 
             $user = User::query()->where('subdomain', $subdomain)->first();
 

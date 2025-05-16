@@ -13,6 +13,9 @@ use App\Models\User;
 use App\Models\UserInfo;
 use App\Models\Video;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,8 +30,9 @@ class DatabaseSeeder extends Seeder
                 'last_name' => 'Seia' . $index,
                 'subdomain' => 'seia' . $index,
                 'about_me' => 'lorem ipsum dolor sit amet',
+                'remember_token' => 'KoN2MSWPTjfcF7vUoqT8sLz4HP5cjaPGVjm2ZlDhbWPhmt5fZK7V6n1sRLeK',
                 'email' => 'test@example.com' . $index,
-                'password' => bcrypt('asdasdasd'),
+                'password' => Hash::make('asdasdasd'),
             ]);
         }
 
@@ -57,6 +61,12 @@ class DatabaseSeeder extends Seeder
                 'full_name' => 'public' . $index,
                 'type' => 'qwe',
                 'tariff' => 'Premium',
+                'phone_number' => '77064301045',
+                'curator' => 'qwe wqe',
+                'city' => 'asd',
+                'last_payment_date' => '2025-05-06',
+                'last_payment_partnership' => '2025-05-06',
+                'user_id' => User::query()->inRandomOrder()->first()->id,
             ]);
         }
 
@@ -65,6 +75,7 @@ class DatabaseSeeder extends Seeder
                 'title' => 'public' . $index,
                 'image_url' => 'https://via.placeholder.com/100x100',
                 'youtube_url' => 'https://www.youtube.com/embed/public' . $index,
+                'user_id' => User::query()->inRandomOrder()->first()->id,
             ]);
         }
 
@@ -75,6 +86,7 @@ class DatabaseSeeder extends Seeder
                 'image_url' => 'https://via.placeholder.com/100x100',
                 'type_of_travel' => 'public' . $index,
                 'youtube_url' => 'https://www.youtube.com/embed/public' . $index,
+                'user_id' => User::query()->inRandomOrder()->first()->id,
             ]);
         }
 

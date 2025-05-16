@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-enum UserInfoEnum
+class UserInfoEnum
 {
-    case
+
 }

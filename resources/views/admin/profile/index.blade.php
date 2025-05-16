@@ -35,7 +35,7 @@
                         Написать мне
                     </button>
 
-                    <x-admin.modal key="writeMeOpen">
+                    <x-admin.modal :key="'writeMeOpen'">
                         seia
                     </x-admin.modal>
                 </div>
@@ -80,9 +80,9 @@
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
-                @forelse(range(1, 5) as $story)
+                @forelse($videos as $video)
                     <a href="">
-                        <x-admin.video-card/>
+                        <x-admin.video-card :video="$video"/>
                     </a>
                 @empty
                     <a href="" class="w-full">

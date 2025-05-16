@@ -15,12 +15,12 @@ class HistoryController extends Controller
     public function index(): View
     {
         $userId = auth()->id();
-        $history = History::query()
+        $histories = History::query()
             ->where('user_id', $userId)
             ->get();
 
         return view('admin.history.index')
-            ->with(compact('history'));
+            ->with(compact('histories'));
     }
 
     public function show(History $history): View

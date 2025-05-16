@@ -1,5 +1,5 @@
 @props([
-    'key' => ''
+    'key'
 ])
 
 <div

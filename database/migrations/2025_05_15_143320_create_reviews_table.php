@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image_url');
             $table->string('type_of_travel');
             $table->string('youtube_url');
+            $table->foreignUuid('user_id')->constrained('users');
             $table->timestamps();
         });
     }

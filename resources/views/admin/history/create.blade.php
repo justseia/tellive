@@ -18,7 +18,7 @@
                         <div class="font-medium text-[20px] md:text-[24px] text-[#0B131D]">Редактор истории</div>
                         <div class="font-medium text-[14px] text-[#9EA9B7]">Этой историей ты вдохновишь других — и укрепишь свой путь.</div>
                     </div>
-                    <hr class="border-b border-[#9EA9B733]/20 my-[20px]"/>
+                    <hr class="border-b border-[#9EA9B7]/20 my-[20px]"/>
                     <div class="flex items-center gap-[7px] mb-[20px]">
                         @include('icons.link', ['color' => '#2272DD'])
                         <div class="font-medium text-[14px] text-[#2272DD]">Посмотреть пример заполнения истории</div>
@@ -43,7 +43,7 @@
                         <x-forms.image-multiple title="Загрузите до 5 фото" placeholder="Название"/>
                         <x-forms.select title="Выберите темы истории" selected="Выберите темы"/>
                     </div>
-                    <hr class="border-b border-[#9EA9B733]/50 my-[30px]"/>
+                    <hr class="border-b border-[#9EA9B7]/20 my-[30px]"/>
                     <div class="flex flex-col gap-[40px]">
                         <div class="font-medium text-[16px] text-[#0B131D]">Блок №1</div>
                         <div class="flex flex-col gap-[40px]">

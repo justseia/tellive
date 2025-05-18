@@ -3,7 +3,7 @@
 @section('content')
     <div class="px-[16px] md:px-[40px] pt-[30px] pb-[24px]">
         <div class="flex items-center gap-[18px] mb-[20px] md:mb-[24px]">
-            <img src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="img" class="h-[70px] w-[70px] md:h-[130px] md:w-[130px] rounded-full object-cover object-center shrink-0">
+            <img src="{{ $user->avatar }}" alt="img" class="h-[70px] w-[70px] md:h-[130px] md:w-[130px] rounded-full object-cover object-center shrink-0">
             <div class="flex flex-col">
                 <div class="mb-[8px]">
                     <div class="font-medium text-[20px]">{{ $user->first_name . ' ' . $user->last_name }}</div>
@@ -60,7 +60,7 @@
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[12px] md:gap-[20px] px-[16px] md:px-[40px]">
-                @forelse(range(1, 10) as $story)
+                @forelse(range(1, 10) as $history)
                     <a href="">
                         <x-admin.story/>
                     </a>
@@ -120,9 +120,9 @@
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
-                @forelse(range(1, 5) as $story)
+                @forelse($reviews as $review)
                     <a href="">
-                        <x-admin.review-card/>
+                        <x-admin.review-card :review="$review"/>
                     </a>
                 @empty
                     <a href="" class="w-full">

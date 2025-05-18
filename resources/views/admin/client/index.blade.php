@@ -7,7 +7,7 @@
                 <div class="text-black text-[24px] md:text-[28px] font-medium">Моя команда</div>
             </div>
             <div class="flex items-center mb-[20px] gap-[10px] overflow-x-auto hide-scrollbar px-[10px] md:px-[20px] ld:px-[30px]">
-                <a href="">
+                <a href="{{ route('admin.client.create') }}">
                     <div class="h-[40px] rounded-[6px] bg-[#2272DD] px-[16px] md:px-[20px] flex gap-[12px] items-center">
                         @include('icons.plus', ['color' => '#FFFFFF'])
                         <div class="text-white text-[15px] font-medium text-nowrap">Добавить клиента</div>
@@ -51,7 +51,7 @@
                             <tr class="border-b border-b-[#F1F1F4] last:border-b-0">
                                 <td class="p-[16px] border-r border-r-[#F1F1F4]">
                                     <div class="flex flex-col gap-[7px]">
-                                        <div class="text-[#071437] text-[15px] font-normal">{{ $client->full_name }}</div>
+                                        <div class="text-[#071437] text-[15px] font-normal text-nowrap">{{ $client->full_name }}</div>
                                         <div class="flex gap-[8px] whitespace-nowrap">
                                             <div class="h-[23px] px-[10px] border-[0.5px] border-[#8A919B]/60px flex items-center justify-center w-fit rounded-[4px]">
                                                 <div class="font-medium text-[12px] text-[#5A6472]/70">{{ $client->type }}</div>
@@ -65,13 +65,13 @@
                                 <td class="p-[16px] border-r border-r-[#F1F1F4]">
                                     <div class="flex flex-col items-center gap-[2px]">
                                         <div class="text-[12px] font-medium text-[#8B919F]">Оплачено до:</div>
-                                        <div class="text-[15px] font-medium text-[#272B41]">{{ $client->last_payment_date?->format('d.m.Y') }}</div>
+                                        <div class="text-[15px] font-medium text-[#272B41] text-nowrap">{{ $client->last_payment_date?->format('d.m.Y') ?? '-' }}</div>
                                     </div>
                                 </td>
                                 <td class="p-[16px] border-r border-r-[#F1F1F4]">
                                     <div class="flex flex-col gap-[2px]">
                                         <div class="text-[12px] font-medium text-[#8B919F]">Куратор:</div>
-                                        <div class="text-[15px] font-medium text-[#272B41]">{{ $client->curator }}</div>
+                                        <div class="text-[15px] font-medium text-[#272B41] text-nowrap">{{ $client->curator }}</div>
                                     </div>
                                 </td>
                                 <td class="p-[16px]">

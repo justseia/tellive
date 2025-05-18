@@ -6,7 +6,7 @@
         <div class="flex flex-col gap-[6px] md:gap-[10px]">
             <a href="{{ route('admin.profile.index') }}">
                 <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] {{ Route::is('admin.profile.*') ? 'bg-[#F9F9FB]' : '' }}">
-                    <img src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="img" class="rounded-full w-[24px] h-[24px]">
+                    <img src="{{ app('user')->avatar }}" alt="img" class="rounded-full w-[24px] h-[24px]">
                     <div class="font-medium text-[15px] text-[#5A6472]">Профиль</div>
                 </div>
             </a>

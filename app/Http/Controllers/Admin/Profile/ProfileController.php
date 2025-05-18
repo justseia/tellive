@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Review;
 use App\Models\Video;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -16,11 +17,18 @@ class ProfileController extends Controller
         $siteUrl = $request->getScheme() . '://' . $user->subdomain . '.' . $baseDomain;
 
         $videos = Video::query()
+            ->latest('created_at')
+            ->where('user_id', $user->id)
+            ->get();
+
+        $reviews = Review::query()
+            ->latest('created_at')
             ->where('user_id', $user->id)
             ->get();
 
         return view('admin.profile.index')
             ->with(compact('videos'))
+            ->with(compact('reviews'))
             ->with(compact('user'))
             ->with(compact('siteUrl'));
     }

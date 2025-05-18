@@ -8,98 +8,101 @@ use App\Models\HistoryBlock;
 use App\Models\HistoryFavorite;
 use App\Models\Review;
 use App\Models\User;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\UserInfo;
 use App\Models\Video;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        foreach (range(1, 5) as $index) {
+        // Пользователи
+        foreach (range(1, 5) as $i) {
             User::query()->create([
-                'first_name' => 'Seia' . $index,
-                'last_name' => 'Seia' . $index,
-                'subdomain' => 'seia' . $index,
-                'about_me' => 'lorem ipsum dolor sit amet',
-                'remember_token' => 'KoN2MSWPTjfcF7vUoqT8sLz4HP5cjaPGVjm2ZlDhbWPhmt5fZK7V6n1sRLeK',
-                'email' => 'test@example.com' . $index,
-                'password' => Hash::make('asdasdasd'),
+                'first_name' => "Сейтмурат{$i}",
+                'last_name' => "Калмурат{$i}",
+                'subdomain' => "seia{$i}",
+                'about_me' => 'Путешественник, блогер и фотограф.',
+                'avatar' => 'https://fakeimg.pl/400x400',
+                'remember_token' => Str::random(60),
+                'email' => "seia{$i}@example.com",
+                'password' => Hash::make('password123'),
             ]);
         }
 
-        foreach (range(1, 5) as $index) {
+        // Истории
+        foreach (range(1, 5) as $i) {
             History::query()->create([
-                'type' => 'public' . $index,
-                'views' => 100,
-                'title' => 'Title',
-                'date' => '2025-05-06',
-                'image_url' => 'https://via.placeholder.com/100x100',
-                'type_of_history' => 'theme',
-                'user_id' => User::query()->inRandomOrder()->first()->id,
+                'type' => 'публичная',
+                'views' => rand(50, 500),
+                'title' => "Путешествие по Европе {$i}",
+                'date' => now()->subDays($i * 2)->format('Y-m-d'),
+                'image_url' => 'https://fakeimg.pl/600x400',
+                'type_of_history' => 'europe_trip',
+                'user_id' => User::query()->first()->id,
             ]);
         }
 
-        foreach (range(1, 5) as $index) {
+        // UserInfo
+        foreach (range(1, 5) as $i) {
             UserInfo::query()->create([
-                'value' => '2026',
-                'type' => 'public' . $index,
-                'user_id' => User::query()->inRandomOrder()->first()->id,
+                'value' => (string)(2020 + $i),
+                'type' => 'год регистрации',
+                'user_id' => User::query()->first()->id,
             ]);
         }
 
-        foreach (range(1, 5) as $index) {
+        // Клиенты
+        foreach (range(1, 5) as $i) {
             Client::query()->create([
-                'full_name' => 'public' . $index,
-                'type' => 'qwe',
-                'tariff' => 'Premium',
-                'phone_number' => '77064301045',
-                'curator' => 'qwe wqe',
-                'city' => 'asd',
-                'last_payment_date' => '2025-05-06',
-                'last_payment_partnership' => '2025-05-06',
-                'user_id' => User::query()->inRandomOrder()->first()->id,
+                'full_name' => "Клиент {$i}",
+                'type' => 'B2B',
+                'tariff' => ['Basic', 'Standard', 'Premium'][rand(0, 2)],
+                'phone_number' => '7706111223' . $i,
+                'curator' => "Куратор {$i}",
+                'city' => ['Алматы', 'Астана', 'Шымкент', 'Караганда'][rand(0, 3)],
+                'last_payment_date' => now()->subDays(rand(5, 30))->format('Y-m-d'),
+                'last_payment_partnership' => now()->subDays(rand(5, 30))->format('Y-m-d'),
+                'user_id' => User::query()->first()->id,
             ]);
         }
 
-        foreach (range(1, 5) as $index) {
+        // Видео
+        foreach (range(1, 5) as $i) {
             Video::query()->create([
-                'title' => 'public' . $index,
-                'image_url' => 'https://via.placeholder.com/100x100',
-                'youtube_url' => 'https://www.youtube.com/embed/public' . $index,
-                'user_id' => User::query()->inRandomOrder()->first()->id,
+                'title' => "Влог о Таиланде {$i}",
+                'image_url' => 'https://fakeimg.pl/600x400',
+                'youtube_url' => 'https://www.youtube.com/embed/dQw4w9WgXcQ?vid=' . $i,
+                'user_id' => User::query()->first()->id,
             ]);
         }
 
-        foreach (range(1, 5) as $index) {
+        // Отзывы
+        foreach (range(1, 5) as $i) {
             Review::query()->create([
-                'title' => 'public' . $index,
-                'description' => 'public' . $index,
-                'image_url' => 'https://via.placeholder.com/100x100',
-                'type_of_travel' => 'public' . $index,
-                'youtube_url' => 'https://www.youtube.com/embed/public' . $index,
-                'user_id' => User::query()->inRandomOrder()->first()->id,
+                'title' => "Отзыв о поездке {$i}",
+                'description' => "Это была незабываемая поездка номер {$i}!",
+                'image_url' => 'https://fakeimg.pl/600x400',
+                'type_of_travel' => ['автобусный тур', 'авиаперелёт', 'круиз'][rand(0, 2)],
+                'youtube_url' => "https://www.youtube.com/embed/dQw4w9WgXcQ?review={$i}",
+                'user_id' => User::query()->first()->id,
             ]);
         }
 
-        foreach (range(1, 5) as $index) {
+        // Блоки истории
+        foreach (range(1, 5) as $i) {
             HistoryBlock::query()->create([
-                'text' => 'public' . $index,
-                'images_url' => 'https://via.placeholder.com/100x100',
-                'youtube_url' => 'https://www.youtube.com/embed/public' . $index,
+                'text' => "Описание впечатлений из раздела {$i}.",
+                'images_url' => 'https://fakeimg.pl/600x400',
+                'youtube_url' => "https://www.youtube.com/embed/dQw4w9WgXcQ?block={$i}",
                 'history_id' => History::query()->inRandomOrder()->first()->id,
             ]);
         }
 
-        foreach (range(1, 5) as $index) {
+        // Избранное
+        foreach (range(1, 5) as $i) {
             HistoryFavorite::query()->create([
                 'user_id' => User::query()->inRandomOrder()->first()->id,
                 'history_id' => History::query()->inRandomOrder()->first()->id,

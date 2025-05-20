@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('city')->nullable();
             $table->date('last_payment_date')->nullable();
             $table->date('last_payment_partnership')->nullable();
+            $table->text('note')->nullable();
             $table->foreignUuid('user_id')->constrained('users');
             $table->timestamps();
         });

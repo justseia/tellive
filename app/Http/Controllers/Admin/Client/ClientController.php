@@ -34,6 +34,12 @@ class ClientController extends Controller
         return view('admin.client.create');
     }
 
+    public function edit(Client $client): View
+    {
+        return view('admin.client.edit')
+            ->with(compact('client'));
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -55,14 +61,21 @@ class ClientController extends Controller
     public function update(Client $client, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'type' => 'required|string',
+            'full_name' => 'sometimes|nullable|string|max:255',
+            'type' => 'sometimes|nullable|string',
+            'tariff' => 'sometimes|nullable|string',
+            'phone_number' => 'sometimes|nullable|string',
+            'curator' => 'sometimes|nullable|string',
+            'city' => 'sometimes|nullable|string',
+            'last_payment_date' => 'sometimes|nullable|date',
+            'last_payment_partnership' => 'sometimes|nullable|date',
+            'note' => 'sometimes|nullable|string',
         ]);
 
         Client::query()
             ->where('id', $client->id)
             ->update($validated);
 
-        return redirect()->route('admin.client.index');
+        return redirect()->back();
     }
 }

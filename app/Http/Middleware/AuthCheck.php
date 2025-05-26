@@ -15,6 +15,17 @@ class AuthCheck
             return redirect()->route('admin.auth.login');
         }
 
+        if (Auth::check() && $request->routeIs('admin.auth.login')) {
+            $user = Auth::user();
+            $currentHost = $request->getHost();
+            $expectedSubdomain = $user->subdomain . '.' . parse_url(config('app.url'), PHP_URL_HOST);
+
+            if ($currentHost !== $expectedSubdomain) {
+                $redirectUrl = $request->getScheme() . '://' . $expectedSubdomain . $request->getRequestUri();
+                return redirect()->to($redirectUrl);
+            }
+        }
+
         return $next($request);
     }
 }

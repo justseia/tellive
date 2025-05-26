@@ -15,7 +15,7 @@ class ClientController extends Controller
         $userId = auth()->id();
 
         $clients = Client::query()
-            ->latest('created_at')
+            ->latest()
             ->where('user_id', $userId)
             ->get();
 
@@ -76,6 +76,6 @@ class ClientController extends Controller
             ->where('id', $client->id)
             ->update($validated);
 
-        return redirect()->back();
+        return back();
     }
 }

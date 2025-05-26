@@ -16,7 +16,7 @@ class ReviewController extends Controller
         $user = app('user');
 
         $reviews = Review::query()
-            ->latest('created_at')
+            ->latest()
             ->where('user_id', $user->id)
             ->get();
 

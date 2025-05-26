@@ -7,14 +7,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SubdomainCheck
 {
     public function handle(Request $request, Closure $next): Response
     {
-        Auth::login(User::query()->first());
-
         $host = $request->getHost();
         $baseDomain = config('app.base_url');
 

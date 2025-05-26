@@ -16,7 +16,7 @@ class VideoController extends Controller
         $user = app('user');
 
         $videos = Video::query()
-            ->latest('created_at')
+            ->latest()
             ->where('user_id', $user->id)
             ->get();
 

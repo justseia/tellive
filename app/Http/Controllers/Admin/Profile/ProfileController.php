@@ -17,12 +17,12 @@ class ProfileController extends Controller
         $siteUrl = $request->getScheme() . '://' . $user->subdomain . '.' . $baseDomain;
 
         $videos = Video::query()
-            ->latest('created_at')
+            ->latest()
             ->where('user_id', $user->id)
             ->get();
 
         $reviews = Review::query()
-            ->latest('created_at')
+            ->latest()
             ->where('user_id', $user->id)
             ->get();
 

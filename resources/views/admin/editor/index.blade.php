@@ -1,36 +1,130 @@
 @extends('layouts.admin.app')
 
 @section('content')
-    <div class="px-[16px] pt-[30px] pb-[20px] md:px-[30px] md:pt-[40px] md:pb-[30px]">
-        <div class="mb-[14px]">
-            <div class="text-[20px] font-medium text-[#0B131D] md:text-[28px]">Моя галерея отзывов</div>
-        </div>
-        <div class="mb-[30px]">
-            <div class="text-[14px] font-medium text-[#717171]/60">
-                Мои моменты жизни — первые шаги, маленькие победы, страхи и успехи.
-                <br/>
-                Истории, которые покажут тебе, как пройти свой путь в inCruises: что делать, чего избегать, куда идти.
-            </div>
-        </div>
-        <a href="" class="inline-block">
-            <div class="flex w-fit items-center gap-[12px] rounded-[6px] border border-[#E8E8E8] bg-[#F9F9F9] px-[20px] py-[8px]">
-                @include('icons.plus', ['color' => '#0B131D'])
-                <div class="text-[14px] font-medium text-[#0B131D] md:text-[15px]">Добавить отзыв</div>
-            </div>
-        </a>
-    </div>
-    <div class="pb-[30px] md:pb-[40px]">
-        <div class="hide-scrollbar w-full overflow-x-auto">
-            <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
-                @forelse(range(1, 5) as $story)
-                    <a href="">
-                        <x-admin.review-card/>
-                    </a>
-                @empty
-                    <a href="" class="w-full">
-                        <x-admin.add-button title="Добавить первый отзыв"/>
-                    </a>
-                @endforelse
+    <div class="flex-1 px-[10px] bg-[#EFF1F4]">
+        <div class="flex flex-col items-center py-[20px] md:py-[40px]">
+            <div class="max-w-[620px] w-full">
+                <div class="flex flex-col p-[20px] md:p-[30px] bg-white rounded-[10px]">
+                    <div class="flex flex-col gap-[10px]">
+                        <div class="font-medium text-[20px] md:text-[24px] text-[#0B131D]">Редактор</div>
+                        <div class="font-medium text-[14px] text-[#9EA9B7]">Настройте основные блоки вашего сайта, чтобы сделать его уникальным и привлекательным!</div>
+                    </div>
+                    <hr class="border-b border-[#9EA9B7]/20 my-[20px]"/>
+                    <div class="flex items-center gap-[7px] mb-[20px]">
+                        @include('icons.link', ['color' => '#2272DD'])
+                        <div class="font-medium text-[14px] text-[#2272DD]">Как редактировать свой сайт?</div>
+                    </div>
+                    <div x-data="{ tab: 'reviews' }">
+                        <div class="mb-[30px] flex items-center h-[38px] border-collapse">
+                            <button
+                                :class="tab === 'about' ? 'bg-[#F4F8FD] text-[#2272DD] border-[#2272DD]' : 'bg-[#9EA9B7]/5 text-[#9EA9B7] border-[#9EA9B7]'"
+                                class="h-full w-full max-w-[130px] font-medium text-[15px] rounded-l-[4px] border focus:outline-none"
+                                @click="tab = 'about'"
+                            >
+                                О себе
+                            </button>
+                            <button
+                                :class="tab === 'reviews' ? 'bg-[#F4F8FD] text-[#2272DD] border-[#2272DD]' : 'bg-[#9EA9B7]/5 text-[#9EA9B7] border-[#9EA9B7]'"
+                                class="h-full w-full max-w-[130px] font-medium text-[15px] border focus:outline-none"
+                                @click="tab = 'reviews'"
+                            >
+                                Отзывы
+                            </button>
+                            <button
+                                :class="tab === 'banner' ? 'bg-[#F4F8FD] text-[#2272DD] border-[#2272DD]' : 'bg-[#9EA9B7]/5 text-[#9EA9B7] border-[#9EA9B7]'"
+                                class="h-full w-full max-w-[130px] font-medium text-[15px] rounded-r-[4px] border focus:outline-none"
+                                @click="tab = 'banner'"
+                            >
+                                Баннер
+                            </button>
+                        </div>
+                        <div class="">
+                            <div x-show="tab === 'about'">
+                                <form action="{{ route('admin.editor.update') }}" method="POST">
+                                    @csrf
+                                    <div class="flex flex-col gap-[30px]">
+                                        <x-forms.textarea value="" title="Напишите краткий текст о себе" placeholder="О себе" rows="4"/>
+                                        <button type="submit" class="flex w-full h-[48px] justify-center items-center gap-[12px] rounded-[6px] border border-[#2272DD] bg-[#2272DD]/5 px-[20px] py-[8px] text-[15px] font-medium text-[#2272DD]">
+                                            Сохранить изменения
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div x-show="tab === 'reviews'" x-cloak>
+                                <div class="flex flex-col gap-[20px]">
+                                    <div class="text-[16px] font-medium text-[#0B131D]">Мои отзывы</div>
+                                    <div class="flex flex-col gap-[10px]">
+                                        @forelse($reviews as $review)
+                                            <div x-data="{ open: false }" class="relative bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-between w-full pl-[16px] pr-[5px]">
+                                                <div class="flex items-center gap-[10px]">
+                                                    @include('icons.six-dot')
+                                                    <div class="font-medium text-[15px] text-[#0B131D]">Отзыв №1</div>
+                                                </div>
+                                                <div class="relative">
+                                                    <button @click="open = !open" class="focus:outline-none w-[30px] flex justify-center">
+                                                        @include('icons.three-dot')
+                                                    </button>
+                                                    <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                                                        <a href="{{ route('admin.editor.review.edit', $review) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Редактировать</a>
+                                                        <a href="{{ route('admin.editor.review.update', $review) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Вверх</a>
+                                                        <a href="{{ route('admin.editor.review.update', $review) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Вниз</a>
+                                                        <a href="{{ route('admin.editor.review.delete', $review) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Удалить</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                                                <div class="font-medium text-[15px] text-[#9EA9B7]">У вас пока нет отзывов</div>
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                    <a href="{{ route('admin.editor.review.create') }}">
+                                        <div class="flex w-full h-[48px] justify-center items-center gap-[12px] rounded-[6px] border border-[#2272DD] bg-[#2272DD]/5 px-[20px] py-[8px]">
+                                            @include('icons.plus', ['color' => '#2272DD'])
+                                            <div class="text-[15px] font-medium text-[#2272DD]">Добавить отзыв</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div x-show="tab === 'banner'" x-cloak>
+                                <div class="flex flex-col gap-[20px]">
+                                    <div class="text-[16px] font-medium text-[#0B131D]">Мои баннеры</div>
+                                    <div class="flex flex-col gap-[10px]">
+                                        @forelse($banners as $banner)
+                                            <div x-data="{ open: false }" class="relative bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-between w-full pl-[16px] pr-[5px]">
+                                                <div class="flex items-center gap-[10px]">
+                                                    @include('icons.six-dot')
+                                                    <div class="font-medium text-[15px] text-[#0B131D]">Баннер №1</div>
+                                                </div>
+                                                <div class="relative">
+                                                    <button @click="open = !open" class="focus:outline-none w-[30px] flex justify-center">
+                                                        @include('icons.three-dot')
+                                                    </button>
+                                                    <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                                                        <a href="{{ route('admin.editor.banner.edit', $banner) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Редактировать</a>
+                                                        <a href="{{ route('admin.editor.banner.update', $banner) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Вверх</a>
+                                                        <a href="{{ route('admin.editor.banner.update', $banner) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Вниз</a>
+                                                        <a href="{{ route('admin.editor.banner.delete', $banner) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Удалить</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                                                <div class="font-medium text-[15px] text-[#9EA9B7]">У вас пока нет баннеров</div>
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                    <a href="{{ route('admin.editor.banner.create') }}">
+                                        <div class="flex w-full h-[48px] justify-center items-center gap-[12px] rounded-[6px] border border-[#2272DD] bg-[#2272DD]/5 px-[20px] py-[8px]">
+                                            @include('icons.plus', ['color' => '#2272DD'])
+                                            <div class="text-[15px] font-medium text-[#2272DD]">Добавить баннер</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

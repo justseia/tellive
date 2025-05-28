@@ -27,10 +27,10 @@
                         <div class="font-medium text-[13px] md:text-[14px] text-[#9EA9B7]">11 апр 2025</div>
                         <div class="flex gap-[26px] items-center">
                             <div class="flex gap-[8px] items-center">
-                                @include('icons.views')
+                                @include('components.icons.views')
                                 <div class="font-medium text-[13px] md:text-[14px] text-[#9EA9B7]">679</div>
                             </div>
-                            @include('icons.three-dot')
+                            @include('components.icons.three-dot')
                         </div>
                     </div>
                     <div class="flex flex-col">
@@ -61,23 +61,23 @@
                     <div class="flex flex-col gap-[10px]">
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Создать аккаунт</div>
-                            @include('icons.done')
+                            @include('components.icons.done')
                         </div>
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Заполнить профиль</div>
-                            @include('icons.link', ['color' => '#C6D0DC'])
+                            @include('components.icons.link', ['color' => '#C6D0DC'])
                         </div>
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Добавить историю</div>
-                            @include('icons.link', ['color' => '#C6D0DC'])
+                            @include('components.icons.link', ['color' => '#C6D0DC'])
                         </div>
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Добавить отзывы</div>
-                            @include('icons.link', ['color' => '#C6D0DC'])
+                            @include('components.icons.link', ['color' => '#C6D0DC'])
                         </div>
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Заполнить сайт</div>
-                            @include('icons.link', ['color' => '#C6D0DC'])
+                            @include('components.icons.link', ['color' => '#C6D0DC'])
                         </div>
                     </div>
                 </div>

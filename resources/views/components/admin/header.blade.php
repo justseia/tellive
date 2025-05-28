@@ -1,32 +1,32 @@
 <div x-data="{ open: false }" x-effect="document.body.classList.toggle('overflow-hidden', open)">
     <header class="flex items-center justify-between lg:hidden w-full h-[54px] md:h-[80px] border-b border-[#D7DADF]/30 bg-white px-[16px]">
-        @include('icons.logo', ['class' => 'h-[36px] w-auto'])
+        @include('components.icons.logo', ['class' => 'h-[36px] w-auto'])
         <div @click="open = true">
-            @include('icons.three-line')
+            @include('components.icons.three-line')
         </div>
     </header>
 
     <div
-        x-show="open"
-        x-transition.opacity
-        @click="open = false"
-        class="fixed inset-0 bg-black/50 z-40"
+            x-show="open"
+            x-transition.opacity
+            @click="open = false"
+            class="fixed inset-0 bg-black/50 z-40"
     ></div>
 
     <aside
-        x-show="open"
-        x-transition:enter="transition transform duration-300"
-        x-transition:enter-start="-translate-x-full"
-        x-transition:enter-end="translate-x-0"
-        x-transition:leave="transition transform duration-300"
-        x-transition:leave-start="translate-x-0"
-        x-transition:leave-end="-translate-x-full"
-        class="fixed top-0 left-0 h-full w-[320px] bg-white shadow-md z-50 flex flex-col"
-        @click.away="open = false"
+            x-show="open"
+            x-transition:enter="transition transform duration-300"
+            x-transition:enter-start="-translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition transform duration-300"
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="-translate-x-full"
+            class="fixed top-0 left-0 h-full w-[320px] bg-white shadow-md z-50 flex flex-col"
+            @click.away="open = false"
     >
         <div class="flex items-center justify-end h-[48px] pr-[16px]">
             <button @click="open = false">
-                @include('icons.close')
+                @include('components.icons.close')
             </button>
         </div>
 

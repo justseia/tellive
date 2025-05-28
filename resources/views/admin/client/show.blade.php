@@ -19,17 +19,17 @@
                             <div class="font-medium text-[20px] md:text-[24px] text-[#0B131D]">{{ $client->full_name }}</div>
                         </div>
                         <div class="flex items-center gap-[8px] whitespace-nowrap mb-[30px]">
-                            <div class="h-[23px] px-[10px] border-[0.5px] border-[#8A919B]/60px flex items-center justify-center w-fit rounded-[4px]">
-                                <div class="font-medium text-[12px] text-[#5A6472]/70">{{ $client->type }}</div>
+                            <div class="h-[23px] px-[10px] border-[0.5px] border-[#8A919B] bg-[#8A919B]/5 flex items-center justify-center w-fit rounded-[4px]">
+                                <div class="font-medium text-[12px] text-[#8A919B]">{{ $userTypeEnum[$client->type] }}</div>
                             </div>
-                            <div class="h-[23px] px-[10px] border-[0.5px] border-[#8A919B]/60px flex items-center justify-center w-fit rounded-[4px]">
-                                <div class="font-medium text-[12px] text-[#5A6472]/70">{{ $client->tariff }}</div>
+                            <div class="h-[23px] px-[10px] border-[0.5px] border-[{{ $tariffEnum[$client->tariff][1] }}] flex items-center justify-center w-fit rounded-[4px] bg-[{{ $tariffEnum[$client->tariff][1] }}]/5">
+                                <div class="font-medium text-[12px] text-[{{ $tariffEnum[$client->tariff][1] }}]">{{ $tariffEnum[$client->tariff][0] }}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-[10px]">
                             <div class="font-medium text-[15px] text-[#071437]">Основные данные</div>
                             <a href="{{ route('admin.client.edit', $client) }}">
-                                @include('icons.edit')
+                                @include('components.icons.edit')
                             </a>
                         </div>
                         <hr class="border-b border-[#9EA9B7]/20 my-[20px]"/>

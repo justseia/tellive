@@ -9,7 +9,7 @@
         <img src="{{ $video->image_url }}" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
         <div class="absolute w-full h-full bg-black/30"></div>
         <div class="absolute top-1/2 left-1/2 -translate-1/2 bg-white/80 w-[40px] h-[40px] rounded-full flex items-center justify-center">
-            @include('icons.play')
+            @include('components.icons.play')
         </div>
     </div>
     <div class="w-full">

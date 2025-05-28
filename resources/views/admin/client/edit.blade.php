@@ -23,14 +23,18 @@
                             <x-forms.text name="full_name" title="ФИО" placeholder="Краткий заголовок (до 15 символов)" value="{{ $client->full_name }}" :showExample="false"/>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
                                 <x-forms.select name="type" title="Тип участника" selected="Выберите тип" :showExample="false">
-                                    <option value="1" {{ $client->type == '1' ? 'selected' : '' }}>1</option>
-                                    <option value="2" {{ $client->type == '2' ? 'selected' : '' }}>2</option>
-                                    <option value="3" {{ $client->type == '3' ? 'selected' : '' }}>3</option>
+                                    <option value="new_client" {{ $client->type == 'new_client' ? 'selected' : '' }}>Новый клиент</option>
+                                    <option value="partner" {{ $client->type == 'partner' ? 'selected' : '' }}>Партнер</option>
+                                    <option value="cruiser" {{ $client->type == 'cruiser' ? 'selected' : '' }}>Круизер</option>
+                                    <option value="potential_client" {{ $client->type == 'potential_client' ? 'selected' : '' }}>Потенциальный клиент</option>
+                                    <option value="declined" {{ $client->type == 'declined' ? 'selected' : '' }}>Отказ</option>
                                 </x-forms.select>
                                 <x-forms.select name="tariff" title="Тариф" selected="Выберите тариф" :showExample="false">
-                                    <option value="1" {{ $client->tariff == '1' ? 'selected' : '' }}>1</option>
-                                    <option value="2" {{ $client->tariff == '2' ? 'selected' : '' }}>2</option>
-                                    <option value="3" {{ $client->tariff == '3' ? 'selected' : '' }}>3</option>
+                                    <option value="free_plan" {{ $client->tariff == 'free_plan' ? 'selected' : '' }}>Безоплатка</option>
+                                    <option value="premium" {{ $client->tariff == 'premium' ? 'selected' : '' }}>Premium</option>
+                                    <option value="classic" {{ $client->tariff == 'classic' ? 'selected' : '' }}>Classic</option>
+                                    <option value="starter" {{ $client->tariff == 'starter' ? 'selected' : '' }}>Starter</option>
+                                    <option value="free_entry" {{ $client->tariff == 'free_entry' ? 'selected' : '' }}>Бесплатный вход</option>
                                 </x-forms.select>
                             </div>
                             <x-forms.text name="phone_number" title="Номер" placeholder="Введите номер телефона" value="{{ $client->phone_number }}" :showExample="false"/>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Editor;
 
 use App\Http\Controllers\Controller;
+use App\Models\LandingBanner;
+use App\Models\LandingReview;
 use App\Models\Review;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -14,13 +16,13 @@ class EditorController extends Controller
     {
         $userId = auth()->id();
 
-        $reviews = Review::query()
-            ->latest()
+        $reviews = LandingReview::query()
+            ->latest('index')
             ->where('user_id', $userId)
             ->get();
 
-        $banners = Review::query()
-            ->latest()
+        $banners = LandingBanner::query()
+            ->latest('index')
             ->where('user_id', $userId)
             ->get();
 
@@ -30,36 +32,6 @@ class EditorController extends Controller
     }
 
     public function update(Request $request): RedirectResponse
-    {
-        return back();
-    }
-
-    public function createReview(): View
-    {
-        return view('admin.editor.create-review');
-    }
-
-    public function storeReview(Request $request): RedirectResponse
-    {
-        return redirect()->route('admin.editor.index');
-    }
-
-    public function deleteReview(): RedirectResponse
-    {
-        return back();
-    }
-
-    public function createBanner(): View
-    {
-        return view('admin.editor.create-banner');
-    }
-
-    public function storeBanner(Request $request): RedirectResponse
-    {
-        return redirect()->route('admin.editor.index');
-    }
-
-    public function deleteBanner(): RedirectResponse
     {
         return back();
     }

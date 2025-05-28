@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\History;
 
+use App\Enums\TypeTravelEnum;
 use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\HistoryBlock;
@@ -20,6 +21,17 @@ class HistoryController extends Controller
             ->get();
 
         return view('admin.history.index')
+            ->with(compact('histories'));
+    }
+
+    public function search(): View
+    {
+        $typeTravelEnum = TypeTravelEnum::get();
+
+        $histories = History::query()->where('type', 'public')->get();
+
+        return view('admin.history.search')
+            ->with(compact('typeTravelEnum'))
             ->with(compact('histories'));
     }
 

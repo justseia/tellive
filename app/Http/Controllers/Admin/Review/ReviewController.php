@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Review;
 
+use App\Enums\TypeTravelEnum;
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
@@ -13,6 +14,7 @@ class ReviewController extends Controller
 {
     public function index(): View
     {
+        $typeTravelEnum = TypeTravelEnum::get();
         $user = app('user');
 
         $reviews = Review::query()
@@ -21,12 +23,16 @@ class ReviewController extends Controller
             ->get();
 
         return view('admin.review.index')
+            ->with(compact('typeTravelEnum'))
             ->with(compact('reviews'));
     }
 
     public function create(): View
     {
-        return view('admin.review.create');
+        $typeTravelEnum = TypeTravelEnum::get();
+
+        return view('admin.review.create')
+            ->with(compact('typeTravelEnum'));
     }
 
     public function store(Request $request, ImageHelper $imageHelper): RedirectResponse

@@ -1,6 +1,8 @@
 @extends('layouts.admin.app')
 
 @section('content')
+    <div class="bg-[#1DB003]/5 bg-[#DD5122]/5 bg-[#2272DD]/5 bg-[#5A6472]/5 text-[#1DB003] text-[#DD5122] text-[#2272DD] text-[#5A6472] border-[#1DB003] border-[#DD5122] border-[#2272DD] border-[#5A6472]"></div>
+
     <div class="flex-1 flex justify-center bg-[#EFF1F4] py-[40px]">
         <div class="max-w-[857px] w-full">
             <div class="mb-[30px] px-[10px] md:px-[20px] ld:px-[30px]">
@@ -9,20 +11,31 @@
             <div class="flex items-center mb-[20px] gap-[10px] overflow-x-auto hide-scrollbar px-[10px] md:px-[20px] ld:px-[30px]">
                 <a href="{{ route('admin.client.create') }}">
                     <div class="h-[40px] rounded-[6px] bg-[#2272DD] px-[16px] md:px-[20px] flex gap-[12px] items-center">
-                        @include('icons.plus', ['color' => '#FFFFFF'])
+                        @include('components.icons.plus', ['color' => '#FFFFFF'])
                         <div class="text-white text-[15px] font-medium text-nowrap">Добавить клиента</div>
                     </div>
                 </a>
-                <select class="border border-[#E8E8E8] rounded-[6px] pl-[16px] md:pl-[20px] pr-[32px] md:pr-[40px]">
-                    <option value="" selected disabled>Оплата</option>
-                </select>
-                <select class="border border-[#E8E8E8] rounded-[6px] pl-[16px] md:pl-[20px] pr-[32px] md:pr-[40px]">
-                    <option value="" selected disabled>Тип клиента</option>
-                </select>
-                <select class="border border-[#E8E8E8] rounded-[6px] pl-[16px] md:pl-[20px] pr-[32px] md:pr-[40px]">
-                    <option value="" selected disabled>Тариф</option>
-                </select>
-                <a href="">
+                <form action="{{ route('admin.client.index') }}" method="GET" class="flex items-center gap-[10px]">
+                    <select name="last_payment_partnership" onchange="this.form.submit()" class="border border-[#E8E8E8] rounded-[6px] pl-[16px] md:pl-[20px] pr-[32px] md:pr-[40px]">
+                        <option value="" disabled selected hidden>Оплата</option>
+                        <option value="week_before_payment" {{ request('last_payment_partnership') == 'week_before_payment' ? 'selected' : '' }}>Неделя до оплаты</option>
+                        <option value="paid" {{ request('last_payment_partnership') == 'paid' ? 'selected' : '' }}>Оплачено</option>
+                        <option value="overdue" {{ request('last_payment_partnership') == 'overdue' ? 'selected' : '' }}>Просрочено</option>
+                    </select>
+                    <select name="type" onchange="this.form.submit()" class="border border-[#E8E8E8] rounded-[6px] pl-[16px] md:pl-[20px] pr-[32px] md:pr-[40px]">
+                        <option value="" disabled selected hidden>Тип клиента</option>
+                        @foreach($userTypeEnum as $key => $userType)
+                            <option value="{{ $key }}" {{ request('type') == $key ? 'selected' : '' }}>{{ $userType }}</option>
+                        @endforeach
+                    </select>
+                    <select name="tariff" onchange="this.form.submit()" class="border border-[#E8E8E8] rounded-[6px] pl-[16px] md:pl-[20px] pr-[32px] md:pr-[40px]">
+                        <option value="" disabled selected hidden>Тариф</option>
+                        @foreach($tariffEnum as $key => $tariff)
+                            <option value="{{ $key }}" {{ request('type') == $key ? 'selected' : '' }}>{{ $tariff[0] }}</option>
+                        @endforeach
+                    </select>
+                </form>
+                <a href="{{ route('admin.client.index') }}">
                     <div class="h-[40px] rounded-[6px] bg-transparent px-[10px] flex gap-[12px] items-center">
                         <div class="text-[#2272DD] text-[15px] font-normal text-nowrap">Сбросить фильтры</div>
                     </div>
@@ -53,11 +66,11 @@
                                     <div class="flex flex-col gap-[7px]">
                                         <div class="text-[#071437] text-[15px] font-normal text-nowrap">{{ $client->full_name }}</div>
                                         <div class="flex gap-[8px] whitespace-nowrap">
-                                            <div class="h-[23px] px-[10px] border-[0.5px] border-[#8A919B]/60px flex items-center justify-center w-fit rounded-[4px]">
-                                                <div class="font-medium text-[12px] text-[#5A6472]/70">{{ $client->type }}</div>
+                                            <div class="h-[23px] px-[10px] border-[0.5px] border-[#8A919B] bg-[#8A919B]/5 flex items-center justify-center w-fit rounded-[4px]">
+                                                <div class="font-medium text-[12px] text-[#8A919B]">{{ $userTypeEnum[$client->type] }}</div>
                                             </div>
-                                            <div class="h-[23px] px-[10px] border-[0.5px] border-[#8A919B]/60px flex items-center justify-center w-fit rounded-[4px]">
-                                                <div class="font-medium text-[12px] text-[#5A6472]/70">{{ $client->tariff }}</div>
+                                            <div class="h-[23px] px-[10px] border-[0.5px] border-[{{ $tariffEnum[$client->tariff][1] }}] flex items-center justify-center w-fit rounded-[4px] bg-[{{ $tariffEnum[$client->tariff][1] }}]/5">
+                                                <div class="font-medium text-[12px] text-[{{ $tariffEnum[$client->tariff][1] }}]">{{ $tariffEnum[$client->tariff][0] }}</div>
                                             </div>
                                         </div>
                                     </div>

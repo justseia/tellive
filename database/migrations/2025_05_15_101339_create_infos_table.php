@@ -10,14 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('infos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
-            $table->string('description');
-            $table->string('image_url');
-            $table->string('type_of_travel');
-            $table->string('youtube_url');
-            $table->foreignUuid('user_id')->constrained('users');
+            $table->string('type');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('user_infos');
     }
 };

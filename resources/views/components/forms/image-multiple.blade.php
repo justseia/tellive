@@ -4,11 +4,18 @@
     'placeholder' => '',
     'showExample' => true,
     'required' => true,
+    'value' => [],
 ])
 
 <div
     x-data="{
         files: [],
+        initial: @json($value),
+        init() {
+            this.initial.forEach(url => {
+                this.files.push({ file: null, url });
+            });
+        },
         handleFiles(event) {
             const selected = Array.from(event.target.files);
             const allowed = 5 - this.files.length;
@@ -22,10 +29,13 @@
             $refs.fileInput.value = null;
         },
         remove(index) {
-            URL.revokeObjectURL(this.files[index].url);
+            if (this.files[index].file) {
+                URL.revokeObjectURL(this.files[index].url);
+            }
             this.files.splice(index, 1);
         }
     }"
+    x-init="init()"
     class="flex flex-col gap-[10px]"
 >
     <div class="flex flex-col gap-[10px]">
@@ -37,7 +47,7 @@
                     {{ $placeholder }}
                 </div>
                 <div class="absolute top-1/2 -translate-y-1/2 left-[16px]">
-                    @include('icons.upload')
+                    @include('components.icons.upload')
                 </div>
             </div>
             <input
@@ -62,7 +72,8 @@
                             @click="remove(index)"
                             class="absolute top-[-8px] right-[-8px] w-[20px] h-[20px] bg-red-500 text-white rounded-full text-[13px] font-bold flex items-center justify-center hover:bg-red-600"
                             title="Удалить"
-                        >×</button>
+                        >×
+                        </button>
                     </div>
                 </template>
             </div>

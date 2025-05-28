@@ -15,7 +15,7 @@
         <div class="mb-[30px]">
             <a href="{{ route('admin.video.create') }}" class="inline-block">
                 <div class="flex items-center w-fit gap-[12px] rounded-[6px] border border-[#E8E8E8] bg-[#F9F9F9] py-[8px] px-[20px]">
-                    @include('icons.plus', ['color' => '#0B131D'])
+                    @include('components.icons.plus', ['color' => '#0B131D'])
                     <div class="font-medium text-[14px] md:text-[15px] text-[#0B131D]">Добавить видео</div>
                 </div>
             </a>

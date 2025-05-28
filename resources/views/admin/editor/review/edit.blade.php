@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex-1 px-[10px] bg-[#EFF1F4]">
-        <form action="{{ route('admin.editor.banner.update', $banner) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.editor.review.update', $review) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col items-center py-[20px] md:py-[40px]">
                 <div class="max-w-[620px] w-full">
@@ -16,12 +16,12 @@
                     </div>
                     <div class="flex flex-col p-[20px] md:p-[30px] bg-white rounded-[10px]">
                         <div class="flex flex-col gap-[40px]">
-                            <x-forms.text value="{{ $banner->name_banner }}" name="name_banner" title="Назовите баннер" placeholder="Пример: Баннер №4"/>
-                            <x-forms.text value="{{ $banner->title }}" name="title" title="Напишите заголовок баннера" placeholder="Заголовок"/>
-                            <x-forms.text value="{{ $banner->text_banner }}" name="text_banner" title="Напишите описание для баннера" placeholder="Описание баннера"/>
-                            <x-forms.image value="{{ $banner->image }}" name="image" title="Загрузите фото на обложку" placeholder="Загрузить"/>
-                            <x-forms.text value="{{ $banner->text_button }}" name="text_button" title="Напишите текст для кнопки" placeholder="Текст кнопки"/>
-                            <x-forms.http value="{{ $banner->url_button }}" name="url_button" title="Ссылка кнопки" placeholder="Вставьте ссылку"/>
+                            <x-forms.text value="{{ $review->name_review }}" name="name_review" title="Назовите отзыв" placeholder="Пример: Баннер №4"/>
+                            <x-forms.text value="{{ $review->title }}" name="title" title="Напишите заголовок отзыва" placeholder="Заголовок"/>
+                            <x-forms.text value="{{ $review->text_review }}" name="text_review" title="Напишите текст для отзыва" placeholder="Текст отзыва"/>
+                            <x-forms.text value="{{ $review->countries }}" name="countries" title="В каких странах были клиенты?" placeholder="Пример: Франция • Италия • Испания"/>
+                            <x-forms.image value="{{ $review->image_url }}" name="image" title="Загрузите фото с отдыха" placeholder="Загрузить"/>
+                            <x-forms.date value="{{ $review->date }}" name="date" title="Введите дату поездки"/>
                             <button type="submit" class="flex w-full items-center gap-[12px] rounded-[4px] bg-[#2272DD] h-[48px] justify-center text-[14px] font-medium text-white md:text-[15px]">
                                 Опубликовать
                             </button>

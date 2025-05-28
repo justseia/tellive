@@ -27,7 +27,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/profile');
+
+            $user = Auth::user();
+            $mainDomain = parse_url(config('app.url'), PHP_URL_HOST);
+            $subdomainUrl = $request->getScheme() . '://' . $user->subdomain . '.' . $mainDomain . '/profile';
+
+            return redirect()->to($subdomainUrl);
         }
 
         return back()->withErrors([
@@ -35,7 +40,7 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    public function registerView(): View
+    public function registerView(): View|RedirectResponse
     {
         return view('admin.auth.register');
     }
@@ -43,32 +48,61 @@ class AuthController extends Controller
     public function register(Request $request): RedirectResponse
     {
         try {
-            $validated = $request->validate([
-                'email' => ['required', 'email', 'unique:users,email'],
-                'country_code' => ['required', 'string'],
-                'phone_number' => ['required', 'string'],
-                'password' => ['required', 'confirmed'],
-                'first_name' => ['required', 'string', 'max:255'],
-                'last_name' => ['required', 'string', 'max:255'],
-                'domain' => ['required', 'string', 'regex:/^[a-zA-Z\-]+$/', 'unique:users,domain'],
-            ]);
+            if (!Auth::check()) {
+                $validated = $request->validate([
+                    'email' => ['required', 'email', 'unique:users,email'],
+                    'country_code' => ['required', 'string'],
+                    'phone_number' => ['required', 'string'],
+                    'password' => ['required', 'confirmed'],
+                ]);
 
-            $user = User::query()->create([
-                'email' => $validated['email'],
-                'country_code' => $validated['country_code'],
-                'phone_number' => $validated['phone_number'],
-                'password' => Hash::make($validated['password']),
-                'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name'],
-                'domain' => $validated['domain'],
-            ]);
+                $user = User::query()->create([
+                    'step' => 1,
+                    'email' => $validated['email'],
+                    'country_code' => $validated['country_code'],
+                    'phone_number' => $validated['phone_number'],
+                    'password' => Hash::make($validated['password']),
+                ]);
 
-            Auth::login($user);
+                Auth::login($user);
+            } else if (Auth::user()->step == 1) {
+                $validated = $request->validate([
+                    'first_name' => ['required', 'string', 'max:255'],
+                    'last_name' => ['required', 'string', 'max:255'],
+                ]);
+
+                Auth::user()->update([
+                    'step' => 2,
+                    'first_name' => $validated['first_name'],
+                    'last_name' => $validated['last_name'],
+                ]);
+            } else if (Auth::user()->step == 2) {
+                $validated = $request->validate([
+                    'subdomain' => ['required', 'string', 'regex:/^[a-zA-Z\-]+$/', 'unique:users,subdomain'],
+                ]);
+
+                Auth::user()->update([
+                    'step' => 3,
+                    'subdomain' => $validated['subdomain'],
+                ]);
+            } else if (Auth::user()->step == 3) {
+                Auth::user()->update([
+                    'step' => 4,
+                ]);
+            }
         } catch (Exception $e) {
-            return back()->withErrors($e);
+            return back()->withErrors([$e->getMessage()]);
         }
 
-        return redirect()->intended('/profile');
+        if (Auth::user()->step != 4) {
+            return back();
+        }
+
+        $user = Auth::user();
+        $mainDomain = parse_url(config('app.url'), PHP_URL_HOST);
+        $subdomainUrl = $request->getScheme() . '://' . $user->subdomain . '.' . $mainDomain . '/profile';
+
+        return redirect()->to($subdomainUrl);
     }
 
     public function logout(): RedirectResponse

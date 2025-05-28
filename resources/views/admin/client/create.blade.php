@@ -23,14 +23,14 @@
                             <x-forms.text name="full_name" title="ФИО" placeholder="Краткий заголовок (до 15 символов)" :showExample="false"/>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
                                 <x-forms.select name="type" title="Тип участника" selected="Выберите тип" :showExample="false">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    @foreach($userTypeEnum as $key => $userType)
+                                        <option value="{{ $key }}">{{ $userType }}</option>
+                                    @endforeach
                                 </x-forms.select>
                                 <x-forms.select name="tariff" title="Тариф" selected="Выберите тариф" :showExample="false">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    @foreach($tariffEnum as $key => $tariff)
+                                        <option value="{{ $key }}">{{ $tariff[0] }}</option>
+                                    @endforeach
                                 </x-forms.select>
                             </div>
                             <x-forms.text name="phone_number" title="Номер" placeholder="Введите номер телефона" :showExample="false"/>

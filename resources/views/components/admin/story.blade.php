@@ -12,7 +12,7 @@
             <div class="text-white font-medium md:text-[14px] text-[11px]">Как выбрать круиз?</div>
         </div>
         <div class="absolute top-[16px] right-[16px]">
-            @include('icons.link')
+            @include('components.icons.link')
         </div>
     </div>
 </div>

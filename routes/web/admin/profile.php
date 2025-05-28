@@ -5,4 +5,6 @@ use App\Http\Controllers\Admin\Profile\ProfileController;
 
 Route::prefix('profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('index');
+    Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+    Route::post('/edit', [ProfileController::class, 'index'])->name('update');
 });

@@ -7,7 +7,7 @@
         </div>
         <a href="{{ route('admin.history.create') }}" class="inline-block">
             <div class="flex items-center w-fit gap-[12px] rounded-[6px] border border-[#E8E8E8] bg-[#F9F9F9] py-[8px] px-[20px]">
-                @include('icons.plus', ['color' => '#0B131D'])
+                @include('components.icons.plus', ['color' => '#0B131D'])
                 <div class="font-medium text-[14px] md:text-[15px] text-[#0B131D]">Создать историю</div>
             </div>
         </a>
@@ -18,9 +18,9 @@
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
-                @forelse(range(1, 5) as $story)
-                    <a href="{{ route('admin.history.show', 1) }}">
-                        <x-admin.history-card/>
+                @forelse($histories as $history)
+                    <a href="{{ route('admin.history.show', $history) }}">
+                        <x-admin.history-card :history="$history"/>
                     </a>
                 @empty
                     <div class="bg-[#F9F9F9] rounded-[6px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
@@ -34,13 +34,13 @@
     <div class="pt-[30px] md:pt-[50px] pb-[30px] md:pb-[60px]">
         <div class="mb-[26px] flex justify-between items-center px-[16px] md:px-[30px]">
             <div class="font-medium text-[20px] text-[#0B131D]">Избранные истории</div>
-            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] text-end text-nowrap">Истории партнеров</a>
+            <a href="{{ route('admin.history.search') }}" class="text-[#0B131D]/40 font-medium text-[14px] text-end text-nowrap">Истории партнеров</a>
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
-                @forelse(range(1, 5) as $story)
-                    <a href="">
-                        <x-admin.history-card/>
+                @forelse($histories as $history)
+                    <a href="{{ route('admin.history.show', $history) }}">
+                        <x-admin.history-card :history="$history"/>
                     </a>
                 @empty
                     <a href="" class="w-full">
@@ -54,13 +54,13 @@
     <div class="pt-[30px] md:pt-[50px] pb-[30px] md:pb-[60px]">
         <div class="mb-[26px] flex gap-[16px] items-center px-[16px]">
             <div class="font-medium text-[20px] text-[#0B131D]">Подборка историй Tellive</div>
-            @include('icons.down')
+            @include('components.icons.down')
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
-                @forelse(range(1, 5) as $story)
-                    <a href="">
-                        <x-admin.history-card/>
+                @forelse($histories as $history)
+                    <a href="{{ route('admin.history.show', $history) }}">
+                        <x-admin.history-card :history="$history"/>
                     </a>
                 @empty
                     <a href="" class="w-full">

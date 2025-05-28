@@ -9,7 +9,7 @@
                 </a>
                 <div class="flex gap-[12px] items-center">
                     <div class="font-medium text-[15px] text-[#5A6472]">Мои истории</div>
-                    @include('icons.down', ['color' => '#5A6472'])
+                    @include('components.icons.down', ['color' => '#5A6472'])
                 </div>
             </div>
             <div class="flex flex-col gap-[10px] md:gap-[20px]">
@@ -18,7 +18,7 @@
                         <img src="https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
                         <div class="absolute w-full h-full bg-black/30"></div>
                         <div class="absolute top-1/2 left-1/2 -translate-1/2 bg-white/80 w-[40px] h-[40px] rounded-full flex items-center justify-center">
-                            @include('icons.play')
+                            @include('components.icons.play')
                         </div>
                     </div>
                 </div>
@@ -33,10 +33,10 @@
                                     <div class="font-medium text-[15px] md:text-[14px] text-[#9EA9B7]">11 апр 2025</div>
                                     <div class="flex gap-[26px] items-center">
                                         <div class="flex gap-[8px] items-center">
-                                            @include('icons.views')
+                                            @include('components.icons.views')
                                             <div class="font-medium text-[15px] md:text-[14px] text-[#9EA9B7]">679</div>
                                         </div>
-                                        @include('icons.three-dot')
+                                        @include('components.icons.three-dot')
                                     </div>
                                 </div>
 
@@ -78,7 +78,7 @@
                                     <img src="https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
                                     <div class="absolute w-full h-full bg-black/30"></div>
                                     <div class="absolute top-1/2 left-1/2 -translate-1/2 bg-white/80 w-[40px] h-[40px] rounded-full flex items-center justify-center">
-                                        @include('icons.play')
+                                        @include('components.icons.play')
                                     </div>
                                 </div>
                             </div>

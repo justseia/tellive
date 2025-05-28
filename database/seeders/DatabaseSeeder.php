@@ -8,7 +8,7 @@ use App\Models\HistoryBlock;
 use App\Models\HistoryFavorite;
 use App\Models\Review;
 use App\Models\User;
-use App\Models\UserInfo;
+use App\Models\Info;
 use App\Models\Video;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -21,14 +21,17 @@ class DatabaseSeeder extends Seeder
         // Пользователи
         foreach (range(1, 5) as $i) {
             User::query()->create([
+                'step' => $i,
                 'first_name' => "Сейтмурат{$i}",
                 'last_name' => "Калмурат{$i}",
+                'country_code' => "+7",
+                'phone_number' => "706430104{$i}",
                 'subdomain' => "seia{$i}",
                 'about_me' => 'Путешественник, блогер и фотограф.',
-                'avatar' => 'https://fakeimg.pl/400x400',
+                'avatar' => 'https://dummyimage.com/400x400',
                 'remember_token' => Str::random(60),
                 'email' => "seia{$i}@example.com",
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('asdasdasd'),
             ]);
         }
 
@@ -39,18 +42,16 @@ class DatabaseSeeder extends Seeder
                 'views' => rand(50, 500),
                 'title' => "Путешествие по Европе {$i}",
                 'date' => now()->subDays($i * 2)->format('Y-m-d'),
-                'image_url' => 'https://fakeimg.pl/600x400',
+                'image_url' => 'https://dummyimage.com/600x400',
                 'type_of_history' => 'europe_trip',
                 'user_id' => User::query()->first()->id,
             ]);
         }
 
-        // UserInfo
         foreach (range(1, 5) as $i) {
-            UserInfo::query()->create([
+            Info::query()->create([
                 'value' => (string)(2020 + $i),
                 'type' => 'год регистрации',
-                'user_id' => User::query()->first()->id,
             ]);
         }
 
@@ -73,7 +74,7 @@ class DatabaseSeeder extends Seeder
         foreach (range(1, 5) as $i) {
             Video::query()->create([
                 'title' => "Влог о Таиланде {$i}",
-                'image_url' => 'https://fakeimg.pl/600x400',
+                'image_url' => 'https://dummyimage.com/600x400',
                 'youtube_url' => 'https://www.youtube.com/embed/dQw4w9WgXcQ?vid=' . $i,
                 'user_id' => User::query()->first()->id,
             ]);
@@ -84,7 +85,7 @@ class DatabaseSeeder extends Seeder
             Review::query()->create([
                 'title' => "Отзыв о поездке {$i}",
                 'description' => "Это была незабываемая поездка номер {$i}!",
-                'image_url' => 'https://fakeimg.pl/600x400',
+                'image_url' => 'https://dummyimage.com/600x400',
                 'type_of_travel' => ['автобусный тур', 'авиаперелёт', 'круиз'][rand(0, 2)],
                 'youtube_url' => "https://www.youtube.com/embed/dQw4w9WgXcQ?review={$i}",
                 'user_id' => User::query()->first()->id,
@@ -95,7 +96,7 @@ class DatabaseSeeder extends Seeder
         foreach (range(1, 5) as $i) {
             HistoryBlock::query()->create([
                 'text' => "Описание впечатлений из раздела {$i}.",
-                'images_url' => 'https://fakeimg.pl/600x400',
+                'images_url' => 'https://dummyimage.com/600x400',
                 'youtube_url' => "https://www.youtube.com/embed/dQw4w9WgXcQ?block={$i}",
                 'history_id' => History::query()->inRandomOrder()->first()->id,
             ]);

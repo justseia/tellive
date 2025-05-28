@@ -14,7 +14,7 @@
         </div>
         <a href="{{ route('admin.review.create') }}" class="inline-block">
             <div class="flex w-fit items-center gap-[12px] rounded-[6px] border border-[#E8E8E8] bg-[#F9F9F9] px-[20px] py-[8px]">
-                @include('icons.plus', ['color' => '#0B131D'])
+                @include('components.icons.plus', ['color' => '#0B131D'])
                 <div class="text-[14px] font-medium text-[#0B131D] md:text-[15px]">Добавить отзыв</div>
             </div>
         </a>
@@ -24,12 +24,12 @@
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
                 @forelse($reviews as $review)
                     <a href="{{ $review->youtube_url }}">
-                        <x-admin.review-card :review="$review"/>
+                        <x-admin.review-card :review="$review" :typeTravelEnum="$typeTravelEnum"/>
                     </a>
                 @empty
-                    <a href="" class="w-full">
-                        <x-admin.add-button title="Добавить первый отзыв"/>
-                    </a>
+                    <div class="bg-[#F9F9F9] rounded-[6px] h-[48px] md:h-[59px] col-span-full flex items-center justify-center w-full">
+                        <div class="font-medium text-[15px] text-[#0B131D]">Начните с добавления первого отзыво</div>
+                    </div>
                 @endforelse
             </div>
         </div>

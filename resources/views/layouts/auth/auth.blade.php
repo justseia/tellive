@@ -1,3 +1,4 @@
+</html>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -10,37 +11,19 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans flex h-dvh">
-        <x-admin.aside/>
 
-        <main class="flex-1 overflow-y-auto overflow-x-hidden flex flex-col">
-            <x-admin.header/>
+        @yield('content')
 
-            @yield('content')
-        </main>
-
-        @stack('scripts')
-        @stack('modal')
-
-        @if ($errors->any())
+        @if ($errors->has('error'))
             <div
                 x-data="{ show: true }"
                 x-init="setTimeout(() => show = false, 3000)"
                 x-show="show"
                 class="fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow"
             >
-                {{ $errors }}
+                {{ $errors->first('error') }}
             </div>
         @endif
 
-        @if (session('success'))
-            <div
-                x-data="{ show: true }"
-                x-init="setTimeout(() => show = false, 3000)"
-                x-show="show"
-                class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow"
-            >
-                {{ session('success') }}
-            </div>
-        @endif
     </body>
 </html>

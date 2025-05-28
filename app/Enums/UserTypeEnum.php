@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-class UserInfoEnum
+class UserTypeEnum
 {
     const NEW_CLIENT = 'new_client';
     const PARTNER = 'partner';

@@ -29,17 +29,38 @@
                 <a href="{{ $siteUrl }}" class="bg-[#2272DD] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-white">
                     Открыть сайт
                 </a>
+                @auth
+                    <a href="{{ route('admin.profile.edit') }}" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
+                        Редактировать
+                    </a>
+                @else
+                    <div x-data="{ writeMeOpen: false }">
+                        <button @click="writeMeOpen = true" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
+                            Написать мне
+                        </button>
 
-                <div x-data="{ writeMeOpen: false }">
-                    <button @click="writeMeOpen = true" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
-                        Написать мне
-                    </button>
-
-                    <x-admin.modal :key="'writeMeOpen'">
-                        seia
-                    </x-admin.modal>
-                </div>
-
+                        <x-admin.modal :key="'writeMeOpen'">
+                            <div class="flex flex-col gap-[10px]">
+                                <a href="{{ $user->whatsapp }}">
+                                    <div class="rounded-[10px] h-[48px] w-full bg-gray-200 flex items-center gap-[10px] justify-center">
+                                        <div class="w-[25px]">
+                                            @include('components.icons.whatsapp')
+                                        </div>
+                                        <div class="text-[15px]">Написать в WhatsApp</div>
+                                    </div>
+                                </a>
+                                <a href="{{ $user->telegram }}">
+                                    <div class="rounded-[10px] h-[48px] w-full bg-gray-200 flex items-center gap-[10px] justify-center">
+                                        <div class="w-[25px]">
+                                            @include('components.icons.telegram')
+                                        </div>
+                                        <div class="text-[15px]">Написать в Telegram</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </x-admin.modal>
+                    </div>
+                @endauth
             </div>
             <div x-data="{ expanded: false, scrollHeight: 0 }" x-init="scrollHeight = $refs.text.scrollHeight" class="relative text-[#717171]">
                 <div x-ref="text" x-bind:style="expanded ? `max-height: ${scrollHeight}px` : 'max-height: 3em'" class="overflow-hidden transition-all duration-500 ease-in-out">
@@ -60,7 +81,7 @@
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[12px] md:gap-[20px] px-[16px] md:px-[40px]">
-                @forelse(range(1, 10) as $history)
+                @forelse(range(1, 5) as $story)
                     <a href="">
                         <x-admin.story/>
                     </a>
@@ -76,7 +97,7 @@
     <div class="pt-[30px] md:pt-[50px] pb-[30px] md:pb-[60px]">
         <div class="mb-[26px] md:mb-[36px] flex gap-[15px] justify-between items-center px-[16px] md:px-[40px]">
             <div class="font-medium text-[20px] md:text-[26px] text-[#0B131D]">Видео про inCruises</div>
-            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px] text-end text-nowrap">Все видео</a>
+            <a href="{{ route('admin.video.index') }}" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px] text-end text-nowrap">Все видео</a>
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
@@ -85,7 +106,7 @@
                         <x-admin.video-card :video="$video"/>
                     </a>
                 @empty
-                    <a href="" class="w-full">
+                    <a href="{{ route('admin.video.create') }}" class="w-full">
                         <x-admin.add-button title="Добавить первое видео"/>
                     </a>
                 @endforelse
@@ -96,16 +117,16 @@
     <div class="pt-[50px] pb-[60px]">
         <div class="mb-[26px] md:mb-[36px] flex gap-[15px] justify-between items-center px-[16px] md:px-[40px]">
             <div class="font-medium text-[20px] md:text-[26px] text-[#0B131D]">Истории жизни в inCruises</div>
-            <a href="#" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px] text-end text-nowrap">Все истории</a>
+            <a href="{{ route('admin.history.index') }}" class="text-[#0B131D]/40 font-medium text-[14px] md:text-[16px] text-end text-nowrap">Все истории</a>
         </div>
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
-                @forelse(range(1, 5) as $story)
-                    <a href="">
-                        <x-admin.history-card/>
+                @forelse($histories as $history)
+                    <a href="{{ route('admin.history.show', $history) }}">
+                        <x-admin.history-card :history="$history"/>
                     </a>
                 @empty
-                    <a href="" class="w-full">
+                    <a href="{{ route('admin.history.create') }}" class="w-full">
                         <x-admin.add-button title="Добавить первую историю"/>
                     </a>
                 @endforelse
@@ -122,7 +143,7 @@
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
                 @forelse($reviews as $review)
                     <a href="">
-                        <x-admin.review-card :review="$review"/>
+                        <x-admin.review-card :review="$review" :typeTravelEnum="$typeTravelEnum"/>
                     </a>
                 @empty
                     <a href="" class="w-full">

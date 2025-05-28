@@ -20,7 +20,7 @@
                     </div>
                     <hr class="border-b border-[#9EA9B7]/20 my-[20px]"/>
                     <div class="flex items-center gap-[7px] mb-[20px]">
-                        @include('icons.link', ['color' => '#2272DD'])
+                        @include('components.icons.link', ['color' => '#2272DD'])
                         <div class="font-medium text-[14px] text-[#2272DD]">Посмотреть пример заполнения истории</div>
                     </div>
                     <div class="flex flex-col gap-[20px] mb-[40px]">

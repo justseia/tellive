@@ -12,15 +12,22 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('subdomain')->unique();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('about_me');
-            $table->string('avatar');
-            $table->string('email')->unique();
+            $table->string('subdomain')->unique()->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('country_code')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('about_me')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->integer('step');
+            $table->string('password')->nullable();
+            $table->integer('step')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('telegram')->nullable();
+            $table->nullableUuidMorphs('first_info');
+            $table->nullableUuidMorphs('second_info');
+            $table->nullableUuidMorphs('third_info');
             $table->rememberToken();
             $table->timestamps();
         });

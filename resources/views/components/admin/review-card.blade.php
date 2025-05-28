@@ -1,5 +1,6 @@
 @props([
     'review' => null,
+    'typeTravelEnum' => null,
 ])
 
 <div class="relative h-[360px] w-[262px] rounded-[10px] overflow-hidden shrink-0">
@@ -9,7 +10,7 @@
     </div>
     <div class="absolute top-0 bottom-0 w-full p-[20px] flex flex-col justify-between">
         <div class="px-[10px] py-[8px] rounded-[6px] bg-[#0A0908]/60 w-fit">
-            <div class="font-normal text-[14px] text-white">{{ $review->type_of_travel }}</div>
+            <div class="font-normal text-[14px] text-white">{{ $typeTravelEnum[$review->type_of_travel] }}</div>
         </div>
         <div class="flex flex-col">
             <div class="mb-[10px]">

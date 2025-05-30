@@ -19,9 +19,7 @@
         <div class="overflow-x-auto hide-scrollbar w-full">
             <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px]">
                 @forelse($histories as $history)
-                    <a href="{{ route('admin.history.show', $history) }}">
-                        <x-admin.history-card :history="$history"/>
-                    </a>
+                    <x-admin.history-card :history="$history"/>
                 @empty
                     <div class="bg-[#F9F9F9] rounded-[6px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
                         <div class="font-medium text-[15px] text-[#0B131D]">Начните с создания первой истории</div>
@@ -43,7 +41,7 @@
                         <x-admin.history-card :history="$history"/>
                     </a>
                 @empty
-                    <a href="" class="w-full">
+                    <a href="{{ route('admin.history.search') }}" class="w-full">
                         <x-admin.add-button title="Добавить истории в избранное"/>
                     </a>
                 @endforelse
@@ -63,9 +61,9 @@
                         <x-admin.history-card :history="$history"/>
                     </a>
                 @empty
-                    <a href="" class="w-full">
-                        <x-admin.add-button title="Добавить истории в избранное"/>
-                    </a>
+                    <div class="bg-[#F9F9F9] rounded-[6px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                        <div class="font-medium text-[15px] text-[#0B131D]">Нет данных</div>
+                    </div>
                 @endforelse
             </div>
         </div>

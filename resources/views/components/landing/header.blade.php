@@ -1,5 +1,5 @@
-<div x-data="{ open: false }" class="relative">
-    <header class="flex items-center justify-between w-full max-w-[1320px] h-[54px] md:h-[78px] border-b border-[#D7DADF]/30 bg-white px-[20px]">
+<div x-data="{ open: false }" class="relative border-b border-[#D7DADF]/30 bg-white">
+    <header class="flex items-center justify-between w-full max-w-[1320px] mx-auto h-[54px] md:h-[78px] px-[20px]">
         @include('components.icons.logo', ['class' => 'h-[36px] w-auto'])
 
         <div class="items-center gap-[40px] hidden md:flex">

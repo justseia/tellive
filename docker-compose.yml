@@ -1,22 +1,6 @@
 version: "3"
 
 services:
-    nginx:
-        container_name: tellive_nginx
-        image: nginx:latest
-        restart: always
-        ports:
-            - "80:80"
-#            - "443:443"
-        volumes:
-            - ./:/var/www
-            - ./_docker/nginx/conf.d:/etc/nginx/conf.d
-            - /etc/letsencrypt:/etc/letsencrypt
-        depends_on:
-            - app
-        networks:
-            - tellive-admin
-
     app:
         container_name: tellive_app
         restart: always
@@ -59,4 +43,4 @@ volumes:
 
 #    sudo apt-get install certbot python3-certbot-nginx
 #    apk add certbot certbot-nginx
-#    certbot --nginx -d tellive.kz -d www.tellive.kz
+#    certbot --nginx -d tellive.me -d www.tellive.me

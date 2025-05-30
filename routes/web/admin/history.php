@@ -9,4 +9,5 @@ Route::prefix('history')->name('history.')->group(function () {
     Route::get('/create', [HistoryController::class, 'create'])->name('create');
     Route::post('/create', [HistoryController::class, 'store'])->name('store');
     Route::get('/{history}', [HistoryController::class, 'show'])->name('show');
+    Route::post('/like/{history}', [HistoryController::class, 'like'])->name('like');
 });

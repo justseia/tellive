@@ -12,7 +12,7 @@
     <body>
         <x-landing.header/>
 
-        <main class="flex-1 overflow-y-auto overflow-x-hidden flex flex-col">
+        <main class="flex-1 overflow-y-auto overflow-x-hidden flex flex-col bg-[#EFF1F4]">
             @yield('content')
         </main>
 

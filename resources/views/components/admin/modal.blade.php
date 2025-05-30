@@ -14,6 +14,7 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-[10px]"
         @click.self="{{ $key }} = false"
         @keydown.escape.window="{{ $key }} = false"
+        x-effect="document.body.classList.toggle('overflow-hidden', open)"
 >
     <div
             @click.stop

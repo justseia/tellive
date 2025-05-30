@@ -10,6 +10,10 @@ class LandingController extends Controller
 {
     public function index(): View
     {
-        return view('landing.index');
+        $userId = auth()->id();
+        $profile = Profile::where('user_id', $userId)->first();
+
+        return view('landing.index')
+            ->with(compact('profile'));
     }
 }

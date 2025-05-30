@@ -2,44 +2,48 @@
 
 @section('content')
     {{--    SECTION 1    --}}
-    <div
-        class="max-w-[1340px] w-full mx-auto"
-        x-data="{
-            active: 0,
-            total: 2,
-            init() {
-                setInterval(() => {
-                    this.active = (this.active + 1) % this.total;
-                }, 3000);
-            }
-        }"
-    >
-        <div class="mt-[30px] mb-[80px] relative h-[544px]">
-            @foreach(range(0,1) as $index)
-                <div x-show="active === {{ $index }}"
-                     x-transition:enter="transition ease-out duration-700"
-                     x-transition:enter-start="opacity-0"
-                     x-transition:enter-end="opacity-100"
-                     x-transition:leave="transition ease-in duration-700"
-                     x-transition:leave-start="opacity-100"
-                     x-transition:leave-end="opacity-0"
-                     class="absolute w-full h-full flex flex-col justify-center px-[50px] bg-cover bg-center rounded-[20px]"
-                     style="background-image: url('https://dummyimage.com/1340x544/')">
-                    <div class="mb-[20px] font-medium text-[50px] text-white">Как увидеть мир, собирая всего по $100 в месяц? {{ $index }}</div>
-                    <div class="mb-[50px] font-medium text-[18px] text-white">inCruises — это копилка, где твои деньги удваиваются. Твои $100 превращаются в $200 на круизы, питание и отдых {{ $index }}</div>
-                    <a href="" class="w-fit">
-                        <div class="px-[32px] py-[16px] rounded-[4px] bg-[#2272DD] text-white font-semibold text-[16px]">Узнать о круизах</div>
-                    </a>
-                </div>
-            @endforeach
-
-            <div class="absolute right-1/2 translate-x-1/2 bottom-[58px] flex gap-[14px]">
-                @foreach(range(0,1) as $index)
-                    <div :class="active === {{ $index }} ? 'bg-white' : 'bg-white/50'" class="rounded-full h-[4px] w-[35px] transition-all"></div>
+    @if($banners->isNotEmpty())
+        <div
+            class="max-w-[1340px] w-full mx-auto"
+            x-data="{
+                active: 0,
+                total: {{ $banners->count() }},
+                init() {
+                    setInterval(() => {
+                        this.active = (this.active + 1) % this.total;
+                    }, 3000);
+                }
+            }"
+        >
+            <div class="mt-[30px] mb-[80px] relative h-[544px]">
+                @foreach($banners as $index => $banner)
+                    <div x-show="active === {{ $index }}"
+                         x-transition:enter="transition ease-out duration-700"
+                         x-transition:enter-start="opacity-0"
+                         x-transition:enter-end="opacity-100"
+                         x-transition:leave="transition ease-in duration-700"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0"
+                         class="absolute w-full h-full flex flex-col justify-center px-[50px] bg-cover bg-center rounded-[20px]"
+                         style="background-image: url('{{ $banner->image_url }}')">
+                        <div class="mb-[20px] font-medium text-[50px] text-white">{{ $banner->title }}</div>
+                        <div class="mb-[50px] font-medium text-[18px] text-white">{{ $banner->text_banner }}</div>
+                        <a href="{{ $banner->url_button }}" class="w-fit" target="_blank">
+                            <div class="px-[32px] py-[16px] rounded-[4px] bg-[#2272DD] text-white font-semibold text-[16px]">{{ $banner->text_button }}</div>
+                        </a>
+                    </div>
                 @endforeach
+
+                @if($banners->count() > 1)
+                    <div class="absolute right-1/2 translate-x-1/2 bottom-[58px] flex gap-[14px]">
+                        @foreach($banners as $index => $banner)
+                            <div :class="active === {{ $index }} ? 'bg-white' : 'bg-white/50'" class="rounded-full h-[4px] w-[35px] transition-all"></div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
-    </div>
+    @endif
 
 
     {{--    SECTION 2    --}}
@@ -550,4 +554,70 @@
             </div>
         </div>
     </div>
+
+
+    {{--    SECTION 8    --}}
+    @if($reviews->isNotEmpty())
+        <div
+            class="max-w-[1240px] w-full mx-auto mb-[120px]"
+            x-data="{
+                active: 0,
+                total: {{ $reviews->count() }},
+                prev() {
+                    if(this.active == 0) {
+                        this.active = this.total;
+                    }
+                    this.active--;
+                },
+                next() {
+                    if(this.active == this.total - 1) {
+                        this.active = -1;
+                    }
+                    this.active++;
+                }
+            }"
+        >
+            <div class="flex flex-col items-center w-full">
+                <div class="flex gap-[26px] items-center w-full mb-[20px]">
+                    <div @click="prev" class="min-h-[48px] min-w-[48px] h-fit w-fit rounded-full bg-white flex items-center justify-center">
+                        <x-icons.left/>
+                    </div>
+                    @foreach($reviews as $index => $review)
+                        <div x-show="active === {{ $index }}"
+                             class="w-full h-[493px] grid grid-cols-12 gap-[25px]">
+                            <div class="col-span-7 rounded-[20px] p-[40px] bg-white flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-center mb-[30px]">
+                                        <div class="text-[18px] font-medium text-[#9EA9B7]">{{ $review->countries }}</div>
+                                        <div class="text-[18px] font-medium text-[#9EA9B7]">{{ $review->date->format('d M Y') }}</div>
+                                    </div>
+                                    <div class="flex flex-col mb-[30px]">
+                                        <div class="text-[29px] font-medium text-[#0B131D]">{{ $review->title }}</div>
+                                        <div class="text-[16px] font-medium text-[#5A6472]">{{ $review->text_review }}</div>
+                                    </div>
+                                </div>
+                                <div class="text-[18px] font-medium text-[#9EA9B7]">Смотреть все отзывы →</div>
+                            </div>
+                            <div class="col-span-5 rounded-[20px] overflow-hidden w-full h-full">
+                                <img src="{{ $review->image_url }}" alt="img" class="object-cover object-center h-full w-full">
+                            </div>
+                        </div>
+                    @endforeach
+                    <div @click="next" class="min-h-[48px] min-w-[48px] h-fit w-fit rounded-full bg-white flex items-center justify-center">
+                        <div class="rotate-180">
+                            <x-icons.left/>
+                        </div>
+                    </div>
+                </div>
+
+                @if($reviews->count() > 1)
+                    <div class="flex gap-[14px]">
+                        @foreach($reviews as $index => $review)
+                            <div :class="active === {{ $index }} ? 'bg-[#0B131D]' : 'bg-[#0B131D]/16'" class="rounded-full h-[4px] w-[35px] transition-all"></div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+    @endif
 @endsection

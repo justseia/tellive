@@ -10,4 +10,11 @@ class LandingReview extends Model
     use HasUuids;
 
     protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'datetime',
+        ];
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\History;
 use App\Models\Info;
 use App\Models\Review;
 use App\Models\Video;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -59,27 +60,31 @@ class ProfileController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'first_name' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'last_name' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'about_me' => ['sometimes', 'nullable', 'string', 'max:1000'],
-            'avatar' => ['sometimes', 'nullable', 'image', 'max:2048'],
-            'whatsapp' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'telegram' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'first_info_id' => ['sometimes', 'nullable', 'uuid'],
-            'first_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'second_info_id' => ['sometimes', 'nullable', 'uuid'],
-            'second_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'third_info_id' => ['sometimes', 'nullable', 'uuid'],
-            'third_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
-        ]);
+        try {
+            $validated = $request->validate([
+                'first_name' => ['sometimes', 'nullable', 'string', 'max:255'],
+                'last_name' => ['sometimes', 'nullable', 'string', 'max:255'],
+                'about_me' => ['sometimes', 'nullable', 'string', 'max:1000'],
+                'avatar' => ['sometimes', 'nullable', 'image', 'max:2048'],
+                'whatsapp' => ['sometimes', 'nullable', 'string', 'max:255'],
+                'telegram' => ['sometimes', 'nullable', 'string', 'max:255'],
+                'first_info_id' => ['sometimes', 'nullable', 'uuid'],
+                'first_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
+                'second_info_id' => ['sometimes', 'nullable', 'uuid'],
+                'second_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
+                'third_info_id' => ['sometimes', 'nullable', 'uuid'],
+                'third_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
+            ]);
 
-        if ($request->hasFile('image')) {
-            $imagePath = '/' . $request->file('image')->store('banners', 'public');
-            $validated['avatar'] = $imagePath;
+            if ($request->hasFile('image')) {
+                $imagePath = '/' . $request->file('image')->store('banners', 'public');
+                $validated['avatar'] = $imagePath;
+            }
+
+            auth()->user()->update($validated);
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
-
-        auth()->user()->update($validated);
 
         return back()->with('success', 'Успешно');
     }

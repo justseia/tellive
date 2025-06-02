@@ -370,27 +370,44 @@
             <div class="mb-[24px] md:mb-[30px] lg:mb-[50px] text-[14px] md:text-[16px] lg:text-[18px] font-medium text-[#0B131D]">
                 Укажи сумму и срок — и сразу увидишь, сколько получишь и куда сможешь поехать
             </div>
-            <div class="grid grid-cols-1 gap-[10px] lg:gap-[20px] lg:grid-cols-2">
+            <div
+                x-data="{
+                    month: 1,
+                    max: 6
+                }"
+                class="grid grid-cols-1 gap-[10px] lg:gap-[20px] lg:grid-cols-2"
+            >
                 <div class="order-2 lg:order-1 h-fit w-full rounded-[16px] bg-white p-[20px] md:p-[30px] lg:p-[40px]">
                     <div class="flex flex-col gap-[14px]">
-                        <div class="flex h-[51px] md:h-[70px] lg:h-[92px] w-full justify-center rounded-[6px] border bg-[#F7F8F9] px-[20px]" :class="selectedTariff == 1 ? 'border-[#2272DD]' : 'border-[#8B919F]/20'" @click="selectedTariff = 1">
-                            <div class="flex w-full items-center justify-between">
-                                <div class="flex flex-col justify-center gap-[4px]">
-                                    <div class="text-[15px] lg:text-[24px] font-medium" :class="selectedTariff == 1 ? 'text-[#2272DD]' : 'text-[#B6C1CD]'">$250 в месяц</div>
-                                    <div class="text-[12px] lg:text-[16px] font-medium hidden md:block" :class="selectedTariff == 1 ? 'text-[#2272DD]' : 'text-[#A4B1C1]'">Premium</div>
-                                </div>
-                                <div class="flex h-[26px] lg:h-[38px] items-center gap-[6px] lg:gap-[8px] rounded-[5px] px-[10px] lg:px-[14px] font-medium text-white" :class="selectedTariff == 1 ? 'bg-[#2272DD]' : 'bg-[#27313F]'">
-                                    <x-icons.king/>
-                                    <span>Премиум</span>
-                                </div>
+                        <div class="text-[15px] font-medium text-[#0B131D] mb-[10px]">Вложил 100$ → получил:</div>
+                        <div class="text-[30px] font-medium text-[#2272DD] mb-[24px]">200 бонусных баллов</div>
+                        <div class="relative overflow-hidden rounded-[6px] h-[55px] w-full mb-[24px]">
+                            <div class="absolute bg-[#EFF1F4] w-full h-full flex justify-end items-center px-[20px]">
+                                <div class="text-[18px] font-medium text-[#0B131D]/20 text-nowrap">6 мес</div>
                             </div>
+                            <div
+                                class="absolute bg-[#2272DD] h-full rounded-r-[6px] flex justify-between items-center pl-[20px] pr-[6px]"
+                                :style="`width: ${(month / max) * 100}%`"
+                            >
+                                <div class="text-[14px] md:text-[18px] font-medium text-white text-nowrap" x-text="`${month} мес`"></div>
+                                <x-icons.six-dot height="20"/>
+                            </div>
+                            <input type="range" min="1" :max="max" step="1" x-model="month" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"/>
+                        </div>
+                        <div class="text-[15px] font-medium text-[#0B131D] mb-[16px]">Сколько хочешь откладывать каждый месяц?</div>
+                        <div class="flex gap-[14px] flex-wrap">
+                            <div class="rounded-[6px] bg-[#F1F1F3] text-[#C1C5C9] px-[20px] py-[12px] h-fit">100$</div>
+                            <div class="rounded-[6px] bg-[#F1F1F3] text-[#C1C5C9] px-[20px] py-[12px] h-fit">$250</div>
+                            <div class="rounded-[6px] bg-[#F1F1F3] text-[#C1C5C9] px-[20px] py-[12px] h-fit text-nowrap">Команда из 5 человек</div>
                         </div>
                     </div>
                 </div>
                 <div class="order-1 lg:order-2 h-fit flex w-full flex-col justify-between rounded-[16px] bg-white p-[20px] md:p-[30px] lg:p-[40px]">
                     <div class="flex w-full flex-col">
                         <div class="mb-[16px] lg:mb-[20px] flex justify-between">
-                            <div class="text-[20px] lg:text-[24px] font-medium text-[#0B131D]">Узнай как путешествовать <span class="text-[#2272DD]">выгодно</span></div>
+                            <div class="text-[20px] lg:text-[24px] font-medium text-[#0B131D]">Узнай как путешествовать
+                                <span class="text-[#2272DD]">выгодно</span>
+                            </div>
                         </div>
                         <div class="flex flex-col gap-[10px] lg:gap-[16px]">
                             <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F7F8F9] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px]">
@@ -403,7 +420,7 @@
                                 3. Сразу увидишь свою выгоду
                             </div>
                             <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F8FBFE] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px] text-[#2272DD]">
-                                ←  Просто потяни за ползунок
+                                ← Просто потяни за ползунок
                             </div>
                         </div>
                     </div>
@@ -792,4 +809,64 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .custom-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            position: relative;
+        }
+
+        .custom-range::-webkit-slider-runnable-track {
+            height: 50px;
+            border-radius: 12px;
+            background: #e5e7eb; /* Tailwind gray-200 */
+            position: relative;
+        }
+
+        .custom-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 40px;
+            height: 40px;
+            background: #a6bbe8; /* Tailwind blue-600 */
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 5px;
+            border: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .custom-range::-moz-range-track {
+            height: 50px;
+            border-radius: 12px;
+            background: #e5e7eb;
+        }
+
+        .custom-range::-moz-range-thumb {
+            width: 40px;
+            height: 40px;
+            background: #2563eb;
+            border-radius: 12px;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .custom-range::before {
+            content: '';
+            height: 50px;
+            background: #2563eb;
+            border-radius: 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc((var(--val) - 1) * 100%);
+            z-index: 1;
+        }
+    </style>
 @endsection

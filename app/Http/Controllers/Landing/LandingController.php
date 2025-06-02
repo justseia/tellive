@@ -12,16 +12,17 @@ class LandingController extends Controller
 {
     public function index(): View
     {
-        $userId = app('user')->id;
+        $user = app('user');
 
         $banners = LandingBanner::query()
-            ->where('user_id', $userId)
+            ->where('user_id', $user->id)
             ->get();
         $reviews = LandingReview::query()
-            ->where('user_id', $userId)
+            ->where('user_id', $user->id)
             ->get();
 
         return view('landing.index')
+            ->with(compact('user'))
             ->with(compact('banners'))
             ->with(compact('reviews'));
     }

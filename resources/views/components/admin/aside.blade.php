@@ -4,7 +4,7 @@
     </div>
 
     <div class="mb-[50px]">
-        <a href="">
+        <a href="{{ route('landing.index') }}">
             <div class="font-medium text-[15px] text-[#5A6472]/60">← Вернуться</div>
         </a>
     </div>

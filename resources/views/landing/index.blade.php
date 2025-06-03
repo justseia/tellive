@@ -451,8 +451,8 @@
                             </div>
                             <div class="flex flex-col gap-[8px] mb-[20px]">
                                 <div class="text-[#9EA9B7] text-[18px] font-medium">Бронируешь круиз:</div>
-                                <div class="text-[#9EA9B7] text-[18px] font-medium">→ $600 деньгами</div>
-                                <div class="text-[#9EA9B7] text-[18px] font-medium">→ $600 бонусными баллами</div>
+                                <div class="text-[#9EA9B7] text-[18px] font-medium">→ $<span x-html="month * money * 2"></span> деньгами</div>
+                                <div class="text-[#9EA9B7] text-[18px] font-medium">→ $<span x-html="month * money * 2"></span> бонусными баллами</div>
                             </div>
                             <div class="text-[#9EA9B7]/50 text-[16px] font-medium">Половину бонусами, половину деньгами — легко и понятно</div>
                         </div>

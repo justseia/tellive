@@ -1,4 +1,4 @@
-<div x-data="{ aside: false, dropdown: false }" x-effect="document.body.classList.toggle('overflow-hidden', open)">
+<div x-data="{ aside: false, dropdown: false }" x-effect="document.body.classList.toggle('overflow-hidden', aside)">
     <header class="flex items-center justify-between w-full max-w-[1320px] mx-auto h-[54px] md:h-[78px] px-[20px]">
         @include('components.icons.logo', ['class' => 'h-[36px] w-auto'])
 

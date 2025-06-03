@@ -36,19 +36,21 @@
     font-style: normal;
 }
 
+/* ---------------------------------------------------------------------- Менял местами ---------------------------------------------------------------------- */
 @font-face {
     font-family: 'Inter';
     src: url('/resources/fonts/Inter_400.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('/resources/fonts/Inter_500.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
 }
+
+/*@font-face {*/
+/*    font-family: 'Inter';*/
+/*    src: url('/resources/fonts/Inter_500.ttf') format('truetype');*/
+/*    font-weight: 500;*/
+/*    font-style: normal;*/
+/*}*/
+/* ---------------------------------------------------------------------- Менял местами ---------------------------------------------------------------------- */
 
 @font-face {
     font-family: 'Inter';
@@ -89,4 +91,8 @@ select:focus,
 button:focus {
     outline: none !important;
     box-shadow: none !important;
+}
+
+html {
+    touch-action: manipulation;
 }

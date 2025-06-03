@@ -12,12 +12,14 @@
                 Истории, которые покажут тебе, как пройти свой путь в inCruises: что делать, чего избегать, куда идти.
             </div>
         </div>
-        <a href="{{ route('admin.review.create') }}" class="inline-block">
-            <div class="flex w-fit items-center gap-[12px] rounded-[6px] border border-[#E8E8E8] bg-[#F9F9F9] px-[20px] py-[8px]">
-                @include('components.icons.plus', ['color' => '#0B131D'])
-                <div class="text-[14px] font-medium text-[#0B131D] md:text-[15px]">Добавить отзыв</div>
-            </div>
-        </a>
+        @subdomain
+            <a href="{{ route('admin.review.create') }}" class="inline-block">
+                <div class="flex w-fit items-center gap-[12px] rounded-[6px] border border-[#E8E8E8] bg-[#F9F9F9] px-[20px] py-[8px]">
+                    @include('components.icons.plus', ['color' => '#0B131D'])
+                    <div class="text-[14px] font-medium text-[#0B131D] md:text-[15px]">Добавить отзыв</div>
+                </div>
+            </a>
+        @endsubdomain
     </div>
     <div class="pb-[30px] md:pb-[40px]">
         <div class="hide-scrollbar w-full overflow-x-auto">

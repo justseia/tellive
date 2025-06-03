@@ -29,7 +29,7 @@
                 <a href="{{ $siteUrl }}" class="bg-[#2272DD] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-white">
                     Открыть сайт
                 </a>
-                @auth
+                @subdomain
                     <a href="{{ route('admin.profile.edit') }}" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
                         Редактировать
                     </a>
@@ -60,7 +60,7 @@
                             </div>
                         </x-admin.modal>
                     </div>
-                @endauth
+                @endsubdomain
             </div>
             <div x-data="{ expanded: false, scrollHeight: 0 }" x-init="scrollHeight = $refs.text.scrollHeight" class="relative text-[#717171]">
                 <div x-ref="text" x-bind:style="expanded ? `max-height: ${scrollHeight}px` : 'max-height: 3em'" class="overflow-hidden transition-all duration-500 ease-in-out">
@@ -86,9 +86,9 @@
                         <x-admin.story/>
                     </a>
                 @empty
-                    <a href="" class="w-full">
-                        <x-admin.add-button title="Добавить первую подборку"/>
-                    </a>
+                    <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                        <div class="font-medium text-[15px] text-[#9EA9B7]">Нет данных</div>
+                    </div>
                 @endforelse
             </div>
         </div>
@@ -106,9 +106,15 @@
                         <x-admin.video-card :video="$video"/>
                     </a>
                 @empty
-                    <a href="{{ route('admin.video.create') }}" class="w-full">
-                        <x-admin.add-button title="Добавить первое видео"/>
-                    </a>
+                    @subdomain
+                        <a href="{{ route('admin.video.create') }}" class="w-full">
+                            <x-admin.add-button title="Добавить первое видео"/>
+                        </a>
+                    @else
+                        <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                            <div class="font-medium text-[15px] text-[#9EA9B7]">Нет данных</div>
+                        </div>
+                    @endsubdomain
                 @endforelse
             </div>
         </div>
@@ -126,9 +132,15 @@
                         <x-admin.history-card :history="$history"/>
                     </a>
                 @empty
-                    <a href="{{ route('admin.history.create') }}" class="w-full">
-                        <x-admin.add-button title="Добавить первую историю"/>
-                    </a>
+                    @subdomain
+                        <a href="{{ route('admin.history.create') }}" class="w-full">
+                            <x-admin.add-button title="Добавить первую историю"/>
+                        </a>
+                    @else
+                        <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                            <div class="font-medium text-[15px] text-[#9EA9B7]">Нет данных</div>
+                        </div>
+                    @endsubdomain
                 @endforelse
             </div>
         </div>
@@ -146,9 +158,15 @@
                         <x-admin.review-card :review="$review" :typeTravelEnum="$typeTravelEnum"/>
                     </a>
                 @empty
-                    <a href="" class="w-full">
-                        <x-admin.add-button title="Добавить первый отзыв"/>
-                    </a>
+                    @subdomain
+                        <a href="{{ route('admin.review.create') }}" class="w-full">
+                            <x-admin.add-button title="Добавить первый отзыв"/>
+                        </a>
+                    @else
+                        <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                            <div class="font-medium text-[15px] text-[#9EA9B7]">Нет данных</div>
+                        </div>
+                    @endsubdomain
                 @endforelse
             </div>
         </div>

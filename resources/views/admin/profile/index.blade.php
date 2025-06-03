@@ -41,7 +41,7 @@
 
                         <x-admin.modal :key="'writeMeOpen'">
                             <div class="flex flex-col gap-[10px]">
-                                <a href="{{ $user->whatsapp }}">
+                                <a href="https://wa.me/{{ $user->whatsapp }}">
                                     <div class="rounded-[10px] h-[48px] w-full bg-gray-200 flex items-center gap-[10px] justify-center">
                                         <div class="w-[25px]">
                                             @include('components.icons.whatsapp')
@@ -49,7 +49,7 @@
                                         <div class="text-[15px]">Написать в WhatsApp</div>
                                     </div>
                                 </a>
-                                <a href="{{ $user->telegram }}">
+                                <a href="https://t.me/{{ $user->telegram }}">
                                     <div class="rounded-[10px] h-[48px] w-full bg-gray-200 flex items-center gap-[10px] justify-center">
                                         <div class="w-[25px]">
                                             @include('components.icons.telegram')

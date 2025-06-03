@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::name('admin.')->group(function () {
+Route::middleware(['authCheck'])->name('admin.')->group(function () {
     include __DIR__ . '/auth.php';
-    Route::middleware(['subdomainCheck', 'authCheck'])->group(function () {
+    Route::middleware(['subdomainCheck'])->group(function () {
         include __DIR__ . '/profile.php';
         include __DIR__ . '/history.php';
         include __DIR__ . '/video.php';

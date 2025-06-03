@@ -56,6 +56,7 @@
             </a>
         </div>
     </div>
+    @endsubdomain
     @auth
         <form method="POST" action="{{ route('admin.auth.logout') }}">
             @csrf
@@ -68,11 +69,10 @@
         </form>
     @else
         <a href="{{ route('admin.auth.login') }}">
-            <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] bg-[#FFF7F7]">
-                @include('components.icons.profile', ['color' => '#DD4422'])
-                <div class="font-medium text-[15px] text-[#DD4422]">Выход</div>
+            <div class="flex gap-[14px] items-center pl-[14px] rounded-[6px] h-[48px] bg-[#F9F9FA] border border-[#2272DD]">
+                @include('components.icons.profile', ['color' => '#2272DD'])
+                <div class="font-medium text-[15px] text-[#2272DD]">Войти</div>
             </div>
         </a>
     @endauth
-    @endsubdomain
 </div>

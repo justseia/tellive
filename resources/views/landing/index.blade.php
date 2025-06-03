@@ -322,9 +322,10 @@
 
     {{-- SECTION 5 --}}
     <div
-        class="mx-auto w-full max-w-[1240px] px-[16px] md:px-[30px] lg:px-0"
         x-data="{
-            selectedTariff: 1,
+            money: 100,
+            month: 1,
+            max: 6,
             dataTariff: [
                 {
                     title: 'Premium',
@@ -366,63 +367,128 @@
         }"
     >
         <div class="mb-[50px] md:mb-[70px] lg:mb-[120px]">
-            <div class="mb-[16px] lg:mb-[24px] text-[28px] md:text-[40px] lg:text-[50px] font-medium text-[#0B131D]">Смотри сколько ты экономишь</div>
-            <div class="mb-[24px] md:mb-[30px] lg:mb-[50px] text-[14px] md:text-[16px] lg:text-[18px] font-medium text-[#0B131D]">
-                Укажи сумму и срок — и сразу увидишь, сколько получишь и куда сможешь поехать
-            </div>
-            <div
-                x-data="{
-                    month: 1,
-                    max: 6
-                }"
-                class="grid grid-cols-1 gap-[10px] lg:gap-[20px] lg:grid-cols-2"
-            >
-                <div class="order-2 lg:order-1 h-fit w-full rounded-[16px] bg-white p-[20px] md:p-[30px] lg:p-[40px]">
-                    <div class="flex flex-col gap-[14px]">
-                        <div class="text-[15px] font-medium text-[#0B131D] mb-[10px]">Вложил 100$ → получил:</div>
-                        <div class="text-[30px] font-medium text-[#2272DD] mb-[24px]">200 бонусных баллов</div>
-                        <div class="relative overflow-hidden rounded-[6px] h-[55px] w-full mb-[24px]">
-                            <div class="absolute bg-[#EFF1F4] w-full h-full flex justify-end items-center px-[20px]">
-                                <div class="text-[18px] font-medium text-[#0B131D]/20 text-nowrap">6 мес</div>
+            <div class="mx-auto w-full max-w-[1240px] px-[16px] md:px-[30px] lg:px-0">
+                <div class="mb-[16px] lg:mb-[24px] text-[28px] md:text-[40px] lg:text-[50px] font-medium text-[#0B131D]">Смотри сколько ты экономишь</div>
+                <div class="mb-[24px] md:mb-[30px] lg:mb-[50px] text-[14px] md:text-[16px] lg:text-[18px] font-medium text-[#0B131D]">
+                    Укажи сумму и срок — и сразу увидишь, сколько получишь и куда сможешь поехать
+                </div>
+                <div class="mb-[24px] md:mb-[30px] lg:mb-[50px] grid grid-cols-1 gap-[10px] lg:gap-[20px] lg:grid-cols-2">
+                    <div class="order-2 lg:order-1 h-fit w-full rounded-[16px] bg-white p-[20px] md:p-[30px] lg:p-[40px]">
+                        <div class="flex flex-col gap-[14px]">
+                            <div class="text-[15px] font-medium text-[#0B131D] mb-[10px]">Вложил
+                                <span x-html="money * month"></span>
+                                $ → получил:
                             </div>
-                            <div
-                                class="absolute bg-[#2272DD] h-full rounded-r-[6px] flex justify-between items-center pl-[20px] pr-[6px]"
-                                :style="`width: ${(month / max) * 100}%`"
-                            >
-                                <div class="text-[14px] md:text-[18px] font-medium text-white text-nowrap" x-text="`${month} мес`"></div>
-                                <x-icons.six-dot height="20"/>
+                            <div class="text-[30px] font-medium text-[#2272DD] mb-[24px]">
+                                <span x-html="money * 2 * month"></span>
+                                бонусных баллов
                             </div>
-                            <input type="range" min="1" :max="max" step="1" x-model="month" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"/>
+                            <div class="relative overflow-hidden rounded-[6px] h-[55px] w-full mb-[24px]">
+                                <div class="absolute bg-[#EFF1F4] w-full h-full flex justify-end items-center px-[20px]">
+                                    <div class="text-[18px] font-medium text-[#0B131D]/20 text-nowrap">6 мес</div>
+                                </div>
+                                <div
+                                    class="absolute bg-[#2272DD] h-full rounded-r-[6px] flex justify-between items-center pl-[20px] pr-[6px]"
+                                    :style="`width: ${(month / max) * 100}%`"
+                                >
+                                    <div class="text-[14px] md:text-[18px] font-medium text-white text-nowrap" x-text="`${month} мес`"></div>
+                                    <x-icons.six-dot height="20"/>
+                                </div>
+                                <input type="range" min="1" :max="max" step="1" x-model="month" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"/>
+                            </div>
+                            <div class="text-[15px] font-medium text-[#0B131D] mb-[16px]">Сколько хочешь откладывать каждый месяц?</div>
+                            <div class="flex gap-[14px] flex-wrap">
+                                <div
+                                    class="rounded-[6px] px-[20px] py-[12px] h-fit"
+                                    :class="money == 100 ? 'text-[#2272DD] bg-[#F9F9FA] border border-[#2272DD]' : 'text-[#C1C5C9] bg-[#F1F1F3]/40'"
+                                    @click="money = 100"
+                                >
+                                    100$
+                                </div>
+                                <div
+                                    class="rounded-[6px] px-[20px] py-[12px] h-fit"
+                                    :class="money == 250 ? 'text-[#2272DD] bg-[#F9F9FA] border border-[#2272DD]' : 'text-[#C1C5C9] bg-[#F1F1F3]/40'"
+                                    @click="money = 250"
+                                >
+                                    $250
+                                </div>
+                                <div class="rounded-[6px] bg-[#F1F1F3] text-[#C1C5C9] px-[20px] py-[12px] h-fit text-nowrap">Команда из 5 человек</div>
+                            </div>
                         </div>
-                        <div class="text-[15px] font-medium text-[#0B131D] mb-[16px]">Сколько хочешь откладывать каждый месяц?</div>
-                        <div class="flex gap-[14px] flex-wrap">
-                            <div class="rounded-[6px] bg-[#F1F1F3] text-[#C1C5C9] px-[20px] py-[12px] h-fit">100$</div>
-                            <div class="rounded-[6px] bg-[#F1F1F3] text-[#C1C5C9] px-[20px] py-[12px] h-fit">$250</div>
-                            <div class="rounded-[6px] bg-[#F1F1F3] text-[#C1C5C9] px-[20px] py-[12px] h-fit text-nowrap">Команда из 5 человек</div>
+                    </div>
+                    <div class="order-1 lg:order-2 h-fit flex w-full flex-col justify-between rounded-[16px] bg-white p-[20px] md:p-[30px] lg:p-[40px]">
+                        <div x-show="month == 1" class="flex w-full flex-col">
+                            <div class="mb-[16px] lg:mb-[20px] flex justify-between">
+                                <div class="text-[20px] lg:text-[24px] font-medium text-[#0B131D]">Узнай как путешествовать
+                                    <span class="text-[#2272DD]">выгодно</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-[10px] lg:gap-[16px]">
+                                <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F7F8F9] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px]">
+                                    1. Выбери, по сколько копить каждый месяц
+                                </div>
+                                <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F7F8F9] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px]">
+                                    2. Укажи, сколько месяцев будешь копить
+                                </div>
+                                <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F7F8F9] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px]">
+                                    3. Сразу увидишь свою выгоду
+                                </div>
+                                <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F8FBFE] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px] text-[#2272DD]">
+                                    ← Просто потяни за ползунок
+                                </div>
+                            </div>
+                        </div>
+                        <div x-show="month != 1" class="flex w-full flex-col">
+                            <div class="mb-[12px] text-[#9EA9B7] text-[18px] font-medium">Ты можешь купить круиз за</div>
+                            <div class="text-[#9EA9B7] text-[18px] font-medium mb-[16px]">
+                                <span class="text-[#0B131D] text-[36px]" x-html="month * money * 4"></span>
+                                на двоих
+                            </div>
+                            <div class="mb-[20px] bg-[#F8FBFE] rounded-[5px] px-[20px] py-[10px] w-fit text-[#2272DD] text-[18px] font-medium">
+                                Ты уже сэкономил $
+                                <span x-html="month * money"></span>
+                                — 25%
+                            </div>
+                            <div class="flex flex-col gap-[8px] mb-[20px]">
+                                <div class="text-[#9EA9B7] text-[18px] font-medium">Бронируешь круиз:</div>
+                                <div class="text-[#9EA9B7] text-[18px] font-medium">→ $600 деньгами</div>
+                                <div class="text-[#9EA9B7] text-[18px] font-medium">→ $600 бонусными баллами</div>
+                            </div>
+                            <div class="text-[#9EA9B7]/50 text-[16px] font-medium">Половину бонусами, половину деньгами — легко и понятно</div>
                         </div>
                     </div>
                 </div>
-                <div class="order-1 lg:order-2 h-fit flex w-full flex-col justify-between rounded-[16px] bg-white p-[20px] md:p-[30px] lg:p-[40px]">
-                    <div class="flex w-full flex-col">
-                        <div class="mb-[16px] lg:mb-[20px] flex justify-between">
-                            <div class="text-[20px] lg:text-[24px] font-medium text-[#0B131D]">Узнай как путешествовать
-                                <span class="text-[#2272DD]">выгодно</span>
+            </div>
+            <div class="flex flex-col w-full">
+                <div class="mx-auto w-full max-w-[1240px] px-[16px] md:px-[30px] lg:px-0">
+                    <div class="mb-[20px] text-[#9EA9B7] text-[18px] font-medium">Маршруты, под твои расчёты</div>
+                    <div class="mb-[20px] text-[#9EA9B7] text-[18px] font-medium">Круизы из Азии, Европы, Америки и стран, где лето круглый год — всё у тебя под рукой</div>
+                </div>
+                <div class="hide-scrollbar w-full overflow-x-auto">
+                    <div class="flex min-w-max gap-[20px] px-[16px] md:px-[30px] lg:px-[calc((100%-1240px)/2)]">
+                        @forelse(range(1,10) as $review)
+                            <div class="relative h-[360px] w-[262px] rounded-[10px] overflow-hidden shrink-0">
+                                <div class="relative w-full h-full">
+                                    <img src="https://dummyimage.com/500x400" alt="img" class="absolute top-0 left-0 w-full h-full object-cover object-center">
+                                    <div class="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                                </div>
+                                <div class="absolute top-0 bottom-0 w-full p-[20px] flex flex-col justify-between">
+                                    <div class="px-[10px] py-[8px] rounded-[6px] bg-[#0A0908]/60 w-fit">
+                                        <div class="font-normal text-[14px] text-white">Накопишь за 3 месяца</div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="mb-[10px]">
+                                            <div class="font-normal text-[16px] text-white">3 порта • 7 ночей</div>
+                                        </div>
+                                        <div class="font-medium text-[17px] text-white">Дубай, Абу-Даби, Джидда</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex flex-col gap-[10px] lg:gap-[16px]">
-                            <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F7F8F9] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px]">
-                                1. Выбери, по сколько копить каждый месяц
+                        @empty
+                            <div class="bg-[#F9F9F9] rounded-[6px] h-[48px] md:h-[59px] col-span-full flex items-center justify-center w-full">
+                                <div class="font-medium text-[15px] text-[#0B131D]">Начните с добавления первого отзыво</div>
                             </div>
-                            <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F7F8F9] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px]">
-                                2. Укажи, сколько месяцев будешь копить
-                            </div>
-                            <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F7F8F9] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px]">
-                                3. Сразу увидишь свою выгоду
-                            </div>
-                            <div class="flex w-full items-center gap-[10px] rounded-[6px] bg-[#F8FBFE] px-[16px] lg:px-[20px] py-[12px] lg:py-[18px] text-[13px] md:text-[15px] lg:text-[18px] text-[#2272DD]">
-                                ← Просто потяни за ползунок
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -809,64 +875,4 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .custom-range {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 50px;
-            background: transparent;
-            position: relative;
-        }
-
-        .custom-range::-webkit-slider-runnable-track {
-            height: 50px;
-            border-radius: 12px;
-            background: #e5e7eb; /* Tailwind gray-200 */
-            position: relative;
-        }
-
-        .custom-range::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 40px;
-            height: 40px;
-            background: #a6bbe8; /* Tailwind blue-600 */
-            border-radius: 12px;
-            cursor: pointer;
-            margin-top: 5px;
-            border: none;
-            position: relative;
-            z-index: 2;
-        }
-
-        .custom-range::-moz-range-track {
-            height: 50px;
-            border-radius: 12px;
-            background: #e5e7eb;
-        }
-
-        .custom-range::-moz-range-thumb {
-            width: 40px;
-            height: 40px;
-            background: #2563eb;
-            border-radius: 12px;
-            cursor: pointer;
-            border: none;
-            position: relative;
-            z-index: 2;
-        }
-
-        .custom-range::before {
-            content: '';
-            height: 50px;
-            background: #2563eb;
-            border-radius: 12px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: calc((var(--val) - 1) * 100%);
-            z-index: 1;
-        }
-    </style>
 @endsection

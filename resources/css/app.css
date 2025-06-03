@@ -96,3 +96,7 @@ button:focus {
 html {
     touch-action: manipulation;
 }
+
+input, textarea, select {
+    font-size: 16px;
+}

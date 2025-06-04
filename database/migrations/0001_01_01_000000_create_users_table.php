@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('country_code')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('about_me')->nullable();
+            $table->string('landing_about_me')->nullable();
             $table->string('avatar')->nullable();
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();

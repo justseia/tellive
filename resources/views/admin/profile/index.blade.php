@@ -38,7 +38,6 @@
                         <button @click="writeMeOpen = true" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
                             Написать мне
                         </button>
-
                         <x-admin.modal :key="'writeMeOpen'">
                             <div class="flex flex-col gap-[10px]">
                                 <a href="https://wa.me/{{ $user->whatsapp }}">
@@ -62,16 +61,18 @@
                     </div>
                 @endsubdomain
             </div>
-            <div x-data="{ expanded: false, scrollHeight: 0 }" x-init="scrollHeight = $refs.text.scrollHeight" class="relative text-[#717171]">
-                <div x-ref="text" x-bind:style="expanded ? `max-height: ${scrollHeight}px` : 'max-height: 3em'" class="overflow-hidden transition-all duration-500 ease-in-out">
-                    {!! nl2br(e($user->about_me)) !!}
+            @if(isset($user->about_me) && !empty($user->about_me))
+                <div x-data="{ expanded: false, scrollHeight: 0 }" x-init="scrollHeight = $refs.text.scrollHeight" class="relative text-[#717171]">
+                    <div x-ref="text" x-bind:style="expanded ? `max-height: ${scrollHeight}px` : 'max-height: 3em'" class="overflow-hidden transition-all duration-500 ease-in-out">
+                        {!! nl2br(e($user->about_me)) !!}
+                    </div>
+                    <div x-show="!expanded" x-transition.opacity class="pointer-events-none absolute bottom-8 left-0 w-full h-6 bg-gradient-to-b from-transparent to-white"></div>
+                    <button @click="expanded = !expanded" class="mt-2 text-[#757575]/40 relative z-10">
+                        <span x-show="!expanded">ещё...</span>
+                        <span x-show="expanded">скрыть</span>
+                    </button>
                 </div>
-                <div x-show="!expanded" x-transition.opacity class="pointer-events-none absolute bottom-8 left-0 w-full h-6 bg-gradient-to-b from-transparent to-white"></div>
-                <button @click="expanded = !expanded" class="mt-2 text-[#757575]/40 relative z-10">
-                    <span x-show="!expanded">ещё...</span>
-                    <span x-show="expanded">скрыть</span>
-                </button>
-            </div>
+            @endif
         </div>
     </div>
     <hr class="border-b border-[#D7DADF]/30 mx-[16px] md:mx-[30px]"/>
@@ -133,15 +134,15 @@
                     </a>
                 @empty
                     @subdomain
-                        <a href="{{ route('admin.history.create') }}" class="w-full">
-                            <x-admin.add-button title="Добавить первую историю"/>
-                        </a>
-                    @else
-                        <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
-                            <div class="font-medium text-[15px] text-[#9EA9B7]">Нет данных</div>
-                        </div>
+                    <a href="{{ route('admin.history.create') }}" class="w-full">
+                        <x-admin.add-button title="Добавить первую историю"/>
+                    </a>
+                @else
+                    <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                        <div class="font-medium text-[15px] text-[#9EA9B7]">Нет данных</div>
+                    </div>
                     @endsubdomain
-                @endforelse
+                    @endforelse
             </div>
         </div>
     </div>
@@ -159,15 +160,15 @@
                     </a>
                 @empty
                     @subdomain
-                        <a href="{{ route('admin.review.create') }}" class="w-full">
-                            <x-admin.add-button title="Добавить первый отзыв"/>
-                        </a>
-                    @else
-                        <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
-                            <div class="font-medium text-[15px] text-[#9EA9B7]">Нет данных</div>
-                        </div>
+                    <a href="{{ route('admin.review.create') }}" class="w-full">
+                        <x-admin.add-button title="Добавить первый отзыв"/>
+                    </a>
+                @else
+                    <div class="bg-[#F9F9F9] rounded-[10px] h-[48px] md:h-[59px] flex items-center justify-center w-full">
+                        <div class="font-medium text-[15px] text-[#9EA9B7]">Нет данных</div>
+                    </div>
                     @endsubdomain
-                @endforelse
+                    @endforelse
             </div>
         </div>
     </div>

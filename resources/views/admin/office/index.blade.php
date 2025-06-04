@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="flex flex-col gap-[20px]">
-                <div class="flex flex-col rounded-[10px] p-[20px] bg-white">
+                <div class="flex flex-col rounded-[10px] p-[20px] bg-white hidden">
                     <div class="text-[18px] font-medium text-[#0B131D] mb-[22px]">Пробный доступ на 3 дней ✨</div>
                     <div class="text-[14px] font-medium text-[#2272DD] mb-[16px]">Осталось 3 дней</div>
                     <div class="w-full bg-[#EFF1F4] mb-[22px] p-[3px] rounded-full">
@@ -61,23 +61,51 @@
                     <div class="flex flex-col gap-[10px]">
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Создать аккаунт</div>
-                            @include('components.icons.done')
+                            @if($siteOccupancy[0])
+                                @include('components.icons.done')
+                            @else
+                                @include('components.icons.link', ['color' => '#C6D0DC'])
+                            @endif
                         </div>
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Заполнить профиль</div>
-                            @include('components.icons.link', ['color' => '#C6D0DC'])
+                            @if($siteOccupancy[1])
+                                @include('components.icons.done')
+                            @else
+                                <a href="{{ route('admin.profile.edit') }}">
+                                    @include('components.icons.link', ['color' => '#C6D0DC'])
+                                </a>
+                            @endif
                         </div>
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Добавить историю</div>
-                            @include('components.icons.link', ['color' => '#C6D0DC'])
+                            @if($siteOccupancy[2])
+                                @include('components.icons.done')
+                            @else
+                                <a href="{{ route('admin.history.index') }}">
+                                    @include('components.icons.link', ['color' => '#C6D0DC'])
+                                </a>
+                            @endif
                         </div>
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Добавить отзывы</div>
-                            @include('components.icons.link', ['color' => '#C6D0DC'])
+                            @if($siteOccupancy[3])
+                                @include('components.icons.done')
+                            @else
+                                <a href="{{ route('admin.review.index') }}">
+                                    @include('components.icons.link', ['color' => '#C6D0DC'])
+                                </a>
+                            @endif
                         </div>
                         <div class="w-full bg-[#2272DD]/5 flex items-center justify-between h-[47px] rounded-[6px] px-[20px]">
                             <div class="text-[14px] font-medium text-[#5A6472]">Заполнить сайт</div>
-                            @include('components.icons.link', ['color' => '#C6D0DC'])
+                            @if($siteOccupancy[4])
+                                @include('components.icons.done')
+                            @else
+                                <a href="{{ route('admin.editor.index') }}">
+                                    @include('components.icons.link', ['color' => '#C6D0DC'])
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

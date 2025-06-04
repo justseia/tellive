@@ -831,7 +831,7 @@
                     <img src="{{ $user->avatar }}" alt="img" class="rounded-full w-[70px] h-[70px] md:w-[110px] md:h-[110px] object-cover object-center">
                     <div class="flex flex-col justify-center gap-[10px] md:gap-[12px]">
                         <div class="text-[20px] md:text-[28px] font-medium text-[#0B131D]">{{ $user->first_name . ' ' . $user->last_name }}</div>
-                        <div class="text-[14px] md:text-[15px] text-[#989CA1]">{{ $user->about_me }}</div>
+                        <div class="text-[14px] md:text-[15px] text-[#989CA1]">{{ $user->landing_about_me }}</div>
                     </div>
                 </div>
                 <div class="flex flex-col gap-[12px] md:gap-[18px]">

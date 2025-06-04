@@ -47,7 +47,7 @@
                                 <form action="{{ route('admin.editor.update') }}" method="POST">
                                     @csrf
                                     <div class="flex flex-col gap-[30px]">
-                                        <x-forms.textarea value="" title="Напишите краткий текст о себе" placeholder="О себе" rows="4"/>
+                                        <x-forms.textarea value="{{ $user->landing_about_me }}" name="landing_about_me" title="Напишите краткий текст о себе" placeholder="О себе" rows="4"/>
                                         <button type="submit" class="flex w-full h-[48px] justify-center items-center gap-[12px] rounded-[6px] border border-[#2272DD] bg-[#2272DD]/5 px-[20px] py-[8px] text-[15px] font-medium text-[#2272DD]">
                                             Сохранить изменения
                                         </button>

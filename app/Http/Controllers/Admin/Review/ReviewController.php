@@ -6,6 +6,7 @@ use App\Enums\TypeTravelEnum;
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,17 +38,22 @@ class ReviewController extends Controller
 
     public function store(Request $request, ImageHelper $imageHelper): RedirectResponse
     {
-        $imageUrl = $imageHelper->upload($request->file('image'));
+        try {
+            $imageUrl = $imageHelper->upload($request->file('image'));
 
-        Review::query()->create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'image_url' => $imageUrl,
-            'type_of_travel' => $request->type_of_travel,
-            'youtube_url' => $request->youtube_url,
-            'user_id' => auth()->id(),
-        ]);
+            Review::query()->create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'image_url' => $imageUrl,
+                'type_of_travel' => $request->type_of_travel,
+                'youtube_url' => $request->youtube_url,
+                'user_id' => auth()->id(),
+            ]);
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
 
-        return redirect()->route('admin.review.index');
+        return redirect()->route('admin.review.index')
+            ->with('success', 'Успешно');
     }
 }

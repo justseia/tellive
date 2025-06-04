@@ -28,7 +28,9 @@
                 x-show="show"
                 class="fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow"
             >
-                {{ $errors }}
+                @foreach($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
             </div>
         @endif
 

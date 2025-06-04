@@ -87,7 +87,7 @@ class ClientController extends Controller
         }
 
         return redirect()->route('admin.client.index')
-            ->with(['success' => 'Успешно']);
+            ->with('success', 'Успешно');
     }
 
     public function update(Client $client, Request $request): RedirectResponse
@@ -112,6 +112,6 @@ class ClientController extends Controller
             return back()->withErrors(['error' => $e->getMessage()]);
         }
 
-        return back()->with(['success' => 'Успешно']);
+        return back()->with('success', 'Успешно');
     }
 }

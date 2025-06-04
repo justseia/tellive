@@ -20,7 +20,6 @@
                                 <span class="font-medium text-[14px] text-[#9EA9B7]">Запомнить меня</span>
                             </span>
                     </label>
-                    {{--                        <a href="" class="text-[#9EA9B7] font-medium text-[14px]">Забыли пароль?</a>--}}
                 </div>
                 <button type="submit" class="h-[48px] text-white font-semibold text-[16px] bg-[#2272DD] rounded-[6px] mb-[20px]">Войти</button>
                 <div class="flex justify-center gap-[5px]">

@@ -110,17 +110,21 @@ class ReviewController extends Controller
 
     public function delete(LandingReview $review): RedirectResponse
     {
-        $userId = auth()->id();
-        $landingReviews = LandingReview::query()
-            ->where('user_id', $userId)
-            ->where('index', '>', $review->index)
-            ->get();
+        try {
+            $userId = auth()->id();
+            $landingReviews = LandingReview::query()
+                ->where('user_id', $userId)
+                ->where('index', '>', $review->index)
+                ->get();
 
-        foreach ($landingReviews as $landingReview) {
-            $landingReview->decrement('index');
+            foreach ($landingReviews as $landingReview) {
+                $landingReview->decrement('index');
+            }
+
+            $review->delete();
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
-
-        $review->delete();
 
         return back()->with('success', 'Успешно');
     }

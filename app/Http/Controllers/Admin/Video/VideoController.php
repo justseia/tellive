@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Video;
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Video;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,15 +32,20 @@ class VideoController extends Controller
 
     public function store(Request $request, ImageHelper $imageHelper): RedirectResponse
     {
-        $imageUrl = $imageHelper->upload($request->file('image'));
+        try {
+            $imageUrl = $imageHelper->upload($request->file('image'));
 
-        Video::query()->create([
-            'title' => $request->title,
-            'image_url' => $imageUrl,
-            'youtube_url' => $request->youtube_url,
-            'user_id' => auth()->id(),
-        ]);
+            Video::query()->create([
+                'title' => $request->title,
+                'image_url' => $imageUrl,
+                'youtube_url' => $request->youtube_url,
+                'user_id' => auth()->id(),
+            ]);
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
 
-        return redirect()->route('admin.video.index');
+        return redirect()->route('admin.video.index')
+            ->with('success', 'Успешно');
     }
 }

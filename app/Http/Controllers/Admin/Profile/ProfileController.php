@@ -75,12 +75,9 @@ class ProfileController extends Controller
                 'avatar' => ['sometimes', 'nullable', 'image', 'max:2048'],
                 'whatsapp' => ['sometimes', 'nullable', 'string', 'max:255'],
                 'telegram' => ['sometimes', 'nullable', 'string', 'max:255'],
-                'first_info_id' => ['sometimes', 'nullable', 'uuid'],
-                'first_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
-                'second_info_id' => ['sometimes', 'nullable', 'uuid'],
-                'second_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
-                'third_info_id' => ['sometimes', 'nullable', 'uuid'],
-                'third_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
+                'user_info' => ['sometimes', 'nullable', 'array', 'size:3'],
+                'id' => ['sometimes', 'nullable', 'array', 'size:3'],
+                'model' => ['sometimes', 'nullable', 'array', 'size:3'],
             ]);
 
             if (!$request->hasFile('avatar')) {
@@ -90,8 +87,44 @@ class ProfileController extends Controller
                 $validated['avatar'] = $imagePath;
             }
 
+            if (isset($validated['user_info'])) {
+                Auth::user()->update([
+                    'first_info_type' => $validated['model'][0],
+                    'first_info_id' => $validated['id'][0],
+                    'second_info_type' => $validated['model'][1],
+                    'second_info_id' => $validated['id'][1],
+                    'third_info_type' => $validated['model'][2],
+                    'third_info_id' => $validated['id'][2],
+                ]);
+
+                return back()->with('success', 'Успешно');
+            }
 
             Auth::user()->update($validated);
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+        return back()->with('success', 'Успешно');
+    }
+
+    public function info(Request $request): RedirectResponse
+    {
+        try {
+            $validated = $request->validate([
+                'type' => ['sometimes', 'nullable', 'string', 'max:255'],
+                'value' => ['sometimes', 'nullable', 'string', 'max:255'],
+            ]);
+
+            UserInfo::query()->updateOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'type' => $validated['type'],
+                ],
+                [
+                    'value' => $validated['value'],
+                ]
+            );
         } catch (Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }

@@ -67,7 +67,7 @@ class BannerController extends Controller
             return back()->withErrors(['error' => $e->getMessage()]);
         }
 
-        return back()->with(['success' => 'Успешно']);
+        return back()->with('success', 'Успешно');
     }
 
     public function create(): View
@@ -105,22 +105,27 @@ class BannerController extends Controller
         }
 
         return redirect()->route('admin.editor.index')
-            ->with(['success' => 'Успешно']);
+            ->with('success', 'Успешно');
     }
 
     public function delete(LandingBanner $banner): RedirectResponse
     {
-        $userId = auth()->id();
-        $landingBanners = LandingBanner::query()
-            ->where('user_id', $userId)
-            ->where('index', '>', $banner->index)
-            ->get();
+        try {
+            $userId = auth()->id();
+            $landingBanners = LandingBanner::query()
+                ->where('user_id', $userId)
+                ->where('index', '>', $banner->index)
+                ->get();
 
-        foreach ($landingBanners as $landingBanner) {
-            $landingBanner->decrement('index');
+            foreach ($landingBanners as $landingBanner) {
+                $landingBanner->decrement('index');
+            }
+
+            $banner->delete();
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
 
-        $banner->delete();
 
         return back()->with('success', 'Успешно');
     }

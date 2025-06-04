@@ -6,7 +6,7 @@
             @csrf
             <div class="flex flex-col max-w-[444px] w-full bg-white py-[26px] px-[20px] md:p-[40px] rounded-[10px]">
                 @if(!auth()->check())
-                    <div x-data="{ email: '', country_code: '', phone_number: '', password: '', password_confirmation: '', error: '' }">
+                    <div x-data="{ email: '', country_code: '+7', phone_number: '', password: '', password_confirmation: '', error: '' }">
                         <div class="flex flex-col gap-[10px] mb-[40px]">
                             <div class="text-[25px] font-medium text-black">Создайте сайт - за 5 минут!</div>
                             <div class="text-[15px] font-medium text-[#9EA9B7]">Tellive - №1 инструмент для партнера inCruises</div>
@@ -24,8 +24,8 @@
                             </div>
                         </div>
                         <button
-                                type="button"
-                                @click="
+                            type="button"
+                            @click="
                             if (password !== password_confirmation) {
                                 error = 'Пароли не совпадают';
                             } else {
@@ -36,7 +36,7 @@
                                 }
                             }
                         "
-                                class="h-[48px] text-white font-semibold text-[16px] bg-[#2272DD] rounded-[6px] mb-[20px] w-full"
+                            class="h-[48px] text-white font-semibold text-[16px] bg-[#2272DD] rounded-[6px] mb-[20px] w-full"
                         >
                             Зарегистрироваться
                         </button>
@@ -57,24 +57,24 @@
                             <div class="text-[15px] font-medium text-[#9EA9B7]">Это будет на вашем сайте и в шапке профиля</div>
                         </div>
                         <button
-                                type="submit"
-                                class="h-[48px] text-white font-semibold text-[16px] bg-[#2272DD] rounded-[6px] mb-[20px] w-full"
+                            type="submit"
+                            class="h-[48px] text-white font-semibold text-[16px] bg-[#2272DD] rounded-[6px] mb-[20px] w-full"
                         >
                             Дальше
                         </button>
                     </div>
                 @elseif(auth()->user()->step == 2)
                     <div x-data="{
-                    domain: '',
-                    validate() {
-                        const regex = /^[a-zA-Z\-]+$/;
-                        if (!regex.test(this.domain)) {
-                            this.error = 'Можно использовать только латинские буквы и дефис (-)';
-                        } else {
-                            this.error = '';
+                        domain: '',
+                        validate() {
+                            const regex = /^[a-zA-Z\-]+$/;
+                            if (!regex.test(this.domain)) {
+                                this.error = 'Можно использовать только латинские буквы и дефис (-)';
+                            } else {
+                                this.error = '';
+                            }
                         }
-                    }
-                }">
+                    }">
                         <div class="flex flex-col gap-[10px] mb-[40px]">
                             <div class="text-[25px] font-medium text-black">Придумайте название сайта</div>
                             <div class="text-[15px] font-medium text-[#9EA9B7]">Это ссылка, по которой будет открываться ваш сайт. Можно использовать имя, фамилию или любое слово</div>
@@ -89,8 +89,7 @@
                             <div class="text-[15px] font-medium text-[#9EA9B7]">
                                 Ваша ссылка:
                                 <span class="text-black">
-                                    <span x-html="domain != '' ? domain : 'имя'"></span>
-                                    .tellive.me
+                                    <span x-html="(domain != '' ? domain : 'имя') + '.tellive.me'"></span>
                                 </span>
                             </div>
                         </div>

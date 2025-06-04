@@ -8,6 +8,7 @@ use App\Models\History;
 use App\Models\HistoryBlock;
 use App\Models\HistoryFavorite;
 use App\Models\User;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -60,28 +61,32 @@ class HistoryController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $userId = auth()->id();
+        try {
+            $userId = auth()->id();
 
-        $historyId = History::query()->create([
-            'type' => $request->type,
-            'views' => 0,
-            'title' => $request->title,
-            'date' => $request->date,
-            'image_url' => $request->image_url,
-            'type_of_history' => $request->type_of_history,
-            'user_id' => $userId,
-        ])->id;
+            $historyId = History::query()->create([
+                'type' => $request->type,
+                'views' => 0,
+                'title' => $request->title,
+                'date' => $request->date,
+                'image_url' => $request->image_url,
+                'type_of_history' => $request->type_of_history,
+                'user_id' => $userId,
+            ])->id;
 
-        foreach ($request->blocks as $block) {
-            HistoryBlock::query()->create([
-                'text' => $block->title,
-                'images_url' => $block->images_url,
-                'youtube_url' => $block->youtube_url,
-                'history_id' => $historyId,
-            ]);
+            foreach ($request->blocks as $block) {
+                HistoryBlock::query()->create([
+                    'text' => $block->title,
+                    'images_url' => $block->images_url,
+                    'youtube_url' => $block->youtube_url,
+                    'history_id' => $historyId,
+                ]);
+            }
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
 
-        return redirect()->route('admin.history.index');
+        return redirect()->route('admin.history.index')->with('success', 'Успешно');
     }
 
     public function like(History $history): JsonResponse

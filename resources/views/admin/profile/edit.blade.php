@@ -79,7 +79,7 @@
                                             @foreach($userInfos as $userInfo)
                                                 <label x-data="{ checked: false }" class="w-full">
                                                     <span class="px-[16px] flex items-center gap-[10px] h-[49px] rounded-[4px] bg-[#FCFCFC] border border-[#CFD4DB]">
-                                                        <input name="user_info" value="{{ $userInfos[] }}" type="checkbox" class="rounded-[3px] w-[16px] h-[16px] border-[#8B919F] checked:border-[#2272DD]" x-model="checked">
+                                                        <input name="user_info" value="{{ $userInfo->id }}" type="checkbox" class="rounded-[3px] w-[16px] h-[16px] border-[#8B919F] checked:border-[#2272DD]" x-model="checked">
                                                         <span :class="checked ? 'text-[#2272DD]' : 'text-[#9EA9B7]'" class="font-medium text-[14px]">{{ UserInfoEnum::get($userInfo->value)[$userInfo->type] }}</span>
                                                     </span>
                                                 </label>

@@ -1,3 +1,7 @@
+@php
+    use App\Enums\UserInfoEnum;
+@endphp
+
 @extends('layouts.admin.app')
 
 @section('content')
@@ -26,7 +30,7 @@
                         @include('components.icons.link', ['color' => '#2272DD'])
                         <div class="font-medium text-[14px] text-[#2272DD]">Как редактировать свой профиль?</div>
                     </div>
-                    <div x-data="{ tab: 'numbers' }">
+                    <div x-data="{ tab: 'about' }">
                         <div class="mb-[30px] flex items-center h-[38px] border-collapse">
                             <button
                                 :class="tab === 'about' ? 'bg-[#F4F8FD] text-[#2272DD] border-[#2272DD]' : 'bg-[#9EA9B7]/5 text-[#9EA9B7] border-[#9EA9B7]'"
@@ -52,13 +56,13 @@
                         </div>
                         <div class="">
                             <div x-show="tab === 'about'">
-                                <form action="{{ route('admin.profile.update') }}" method="POST">
+                                <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="flex flex-col gap-[30px]">
-                                        <x-forms.image value="{{ $user->avatar }}" title="Загрузите свою фотографию" placeholder="Загрузить"/>
-                                        <x-forms.text value="{{ $user->first_name }}" title="Имя" placeholder="Введите ваше имя"/>
-                                        <x-forms.text value="{{ $user->last_name }}" title="Фамилия" placeholder="Введите вашу фамилию"/>
-                                        <x-forms.textarea value="{{ $user->about_me }}" title="Напишите краткий текст о себе" placeholder="О себе" rows="4"/>
+                                        <x-forms.image value="{{ $user->avatar }}" name="avatar" title="Загрузите свою фотографию" placeholder="Загрузить"/>
+                                        <x-forms.text value="{{ $user->first_name }}" name="first_name" title="Имя" placeholder="Введите ваше имя"/>
+                                        <x-forms.text value="{{ $user->last_name }}" name="last_name" title="Фамилия" placeholder="Введите вашу фамилию"/>
+                                        <x-forms.textarea value="{{ $user->about_me }}" name="about_me" title="Напишите краткий текст о себе" placeholder="О себе" rows="4"/>
                                         <button type="submit" class="flex w-full h-[48px] justify-center items-center gap-[12px] rounded-[6px] border border-[#2272DD] bg-[#2272DD]/5 px-[20px] py-[8px] text-[15px] font-medium text-[#2272DD]">
                                             Сохранить изменения
                                         </button>
@@ -72,11 +76,11 @@
                                     <div class="mb-[30px] flex flex-col gap-[10px]">
                                         <div class="text-[15px] font-semibold text-[#0B131D]">Пользовательские цифры</div>
                                         <div class="flex flex-col gap-[10px]">
-                                            @foreach(range(1,3) as $property)
+                                            @foreach($userInfos as $userInfo)
                                                 <label x-data="{ checked: false }" class="w-full">
                                                     <span class="px-[16px] flex items-center gap-[10px] h-[49px] rounded-[4px] bg-[#FCFCFC] border border-[#CFD4DB]">
-                                                        <input name="remember" type="checkbox" class="rounded-[3px] w-[16px] h-[16px] border-[#8B919F] checked:border-[#2272DD]" x-model="checked">
-                                                        <span :class="checked ? 'text-[#2272DD]' : 'text-[#9EA9B7]'" class="font-medium text-[14px]">Работаем с 2016 года</span>
+                                                        <input name="user_info" value="{{ $userInfos[] }}" type="checkbox" class="rounded-[3px] w-[16px] h-[16px] border-[#8B919F] checked:border-[#2272DD]" x-model="checked">
+                                                        <span :class="checked ? 'text-[#2272DD]' : 'text-[#9EA9B7]'" class="font-medium text-[14px]">{{ UserInfoEnum::get($userInfo->value)[$userInfo->type] }}</span>
                                                     </span>
                                                 </label>
                                             @endforeach
@@ -113,8 +117,8 @@
                                             @foreach($infos as $info)
                                                 <label x-data="{ checked: false }" class="w-full">
                                                     <span class="px-[16px] flex items-center gap-[10px] h-[49px] rounded-[4px] bg-[#FCFCFC] border border-[#CFD4DB]">
-                                                        <input name="remember" type="checkbox" class="rounded-[3px] w-[16px] h-[16px] border-[#8B919F] checked:border-[#2272DD]" x-model="checked">
-                                                        <span :class="checked ? 'text-[#2272DD]' : 'text-[#9EA9B7]'" class="font-medium text-[14px]">Работаем с 2016 года</span>
+                                                        <input name="user_info" type="checkbox" class="rounded-[3px] w-[16px] h-[16px] border-[#8B919F] checked:border-[#2272DD]" x-model="checked">
+                                                        <span :class="checked ? 'text-[#2272DD]' : 'text-[#9EA9B7]'" class="font-medium text-[14px]">{{ UserInfoEnum::get($info->value)[$info->type] }}</span>
                                                     </span>
                                                 </label>
                                             @endforeach
@@ -130,8 +134,8 @@
                                 <form action="{{ route('admin.profile.update') }}" method="POST">
                                     @csrf
                                     <div class="flex flex-col gap-[30px]">
-                                        <x-forms.text value="{{ $user->whatsapp }}" title="WhatsApp" placeholder="Введите ваш номер WhatsApp"/>
-                                        <x-forms.text value="{{ $user->telegram }}" title="Telegram" placeholder="Введите имя пользователя Telegram"/>
+                                        <x-forms.text value="{{ $user->whatsapp }}" name="whatsapp" title="WhatsApp" placeholder="Введите ваш номер WhatsApp"/>
+                                        <x-forms.text value="{{ $user->telegram }}" name="telegram" title="Telegram" placeholder="Введите имя пользователя Telegram"/>
                                         <button type="submit" class="flex w-full h-[48px] justify-center items-center gap-[12px] rounded-[6px] border border-[#2272DD] bg-[#2272DD]/5 px-[20px] py-[8px] text-[15px] font-medium text-[#2272DD]">
                                             Сохранить изменения
                                         </button>

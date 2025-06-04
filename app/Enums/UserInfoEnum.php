@@ -4,20 +4,26 @@ namespace App\Enums;
 
 class UserInfoEnum
 {
-    const NEW_CLIENT = 'new_client';
-    const PARTNER = 'partner';
-    const CRUISER = 'cruiser';
-    const POTENTIAL_CLIENT = 'potential_client';
-    const DECLINED = 'declined';
+    const STANDARD_WORK = 'standard_work';
+    const STANDARD_DIRECTION = 'standard_direction';
+    const STANDARD_PEOPLE = 'standard_people';
 
-    public static function get(): array
+    const SUPPORT = 'support';
+    const COUNTRY = 'country';
+    const CRUISE = 'cruise';
+    const YEAR = 'year';
+
+    public static function get($value): array
     {
         return [
-            self::NEW_CLIENT => 'Новый клиент',
-            self::PARTNER => 'Партнер',
-            self::CRUISER => 'Круизер',
-            self::POTENTIAL_CLIENT => 'Потенциальный клиент',
-            self::DECLINED => 'Отказ',
+            self::STANDARD_WORK => 'Работаем с ' . $value . ' года',
+            self::STANDARD_DIRECTION => 'Направлений - ' . $value . ' стран',
+            self::STANDARD_PEOPLE => 'Участников - ' . $value . ' млн',
+
+            self::SUPPORT => 'Поддержала ' . $value . '+ людей',
+            self::COUNTRY => 'Посетила ' . $value . ' стран',
+            self::CRUISE => 'Побывала в ' . $value . ' круизах',
+            self::YEAR => 'Работаю с ' . $value . ' года',
         ];
     }
 }

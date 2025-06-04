@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Profile;
 
 use App\Enums\TypeTravelEnum;
+use App\Enums\UserInfoEnum;
 use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\Info;
 use App\Models\Review;
+use App\Models\UserInfo;
 use App\Models\Video;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -53,7 +55,12 @@ class ProfileController extends Controller
         $user = auth()->user();
         $infos = Info::all();
 
+        $userInfos = UserInfo::query()
+            ->where('user_id', $user->id)
+            ->get();
+
         return view('admin.profile.edit')
+            ->with(compact('userInfos'))
             ->with(compact('infos'))
             ->with(compact('user'));
     }
@@ -76,12 +83,15 @@ class ProfileController extends Controller
                 'third_info_type' => ['sometimes', 'nullable', 'string', 'max:255'],
             ]);
 
-            if ($request->hasFile('image')) {
-                $imagePath = '/' . $request->file('image')->store('banners', 'public');
+            if (!$request->hasFile('avatar')) {
+                unset($validated['avatar']);
+            } else {
+                $imagePath = '/' . $request->file('avatar')->store('banners', 'public');
                 $validated['avatar'] = $imagePath;
             }
 
-            auth()->user()->update($validated);
+
+            Auth::user()->update($validated);
         } catch (Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }

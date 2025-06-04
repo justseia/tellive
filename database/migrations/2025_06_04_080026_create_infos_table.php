@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('infos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('type');
             $table->string('value');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_infos');
+        Schema::dropIfExists('infos');
     }
 };

@@ -2,14 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Client;
-use App\Models\History;
-use App\Models\HistoryBlock;
-use App\Models\HistoryFavorite;
-use App\Models\Review;
+use App\Enums\UserInfoEnum;
 use App\Models\User;
 use App\Models\Info;
-use App\Models\Video;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -32,6 +27,27 @@ class DatabaseSeeder extends Seeder
                 'remember_token' => Str::random(60),
                 'email' => "seia{$i}@example.com",
                 'password' => Hash::make('asdasdasd'),
+            ]);
+        }
+
+        $infos = [
+            [
+                '2016',
+                UserInfoEnum::STANDARD_WORK,
+            ],
+            [
+                '208',
+                UserInfoEnum::STANDARD_DIRECTION,
+            ],
+            [
+                '1,8',
+                UserInfoEnum::STANDARD_PEOPLE,
+            ],
+        ];
+        foreach ($infos as $info) {
+            Info::query()->create([
+                'value' => $info[0],
+                'type' => $info[1],
             ]);
         }
     }

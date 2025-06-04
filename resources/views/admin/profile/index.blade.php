@@ -64,7 +64,7 @@
             </div>
             <div x-data="{ expanded: false, scrollHeight: 0 }" x-init="scrollHeight = $refs.text.scrollHeight" class="relative text-[#717171]">
                 <div x-ref="text" x-bind:style="expanded ? `max-height: ${scrollHeight}px` : 'max-height: 3em'" class="overflow-hidden transition-all duration-500 ease-in-out">
-                    {{ $user->about_me }}
+                    {!! nl2br(e($user->about_me)) !!}
                 </div>
                 <div x-show="!expanded" x-transition.opacity class="pointer-events-none absolute bottom-8 left-0 w-full h-6 bg-gradient-to-b from-transparent to-white"></div>
                 <button @click="expanded = !expanded" class="mt-2 text-[#757575]/40 relative z-10">

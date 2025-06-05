@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin\History;
 use App\Enums\TypeTravelEnum;
 use App\Http\Controllers\Controller;
 use App\Models\History;
-use App\Models\HistoryBlock;
 use App\Models\HistoryFavorite;
-use App\Models\User;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -20,6 +18,7 @@ class HistoryController extends Controller
     {
         $userId = auth()->id();
         $histories = History::query()
+            ->latest()
             ->where('user_id', $userId)
             ->get();
 
@@ -32,6 +31,7 @@ class HistoryController extends Controller
         $typeTravelEnum = TypeTravelEnum::get();
 
         $histories = History::query()
+            ->latest()
             ->where('type', 'public')
             ->when($request->filled('type'), function ($query) use ($request) {
                 $query->where('type', $request->input('type'));
@@ -50,13 +50,18 @@ class HistoryController extends Controller
 
     public function show(History $history): View
     {
+        $history->load(['user']);
+
         return view('admin.history.show')
             ->with(compact('history'));
     }
 
     public function create(): View
     {
-        return view('admin.history.create');
+        $typeTravelEnum = TypeTravelEnum::get();
+
+        return view('admin.history.create')
+            ->with(compact('typeTravelEnum'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -64,24 +69,28 @@ class HistoryController extends Controller
         try {
             $userId = auth()->id();
 
-            $historyId = History::query()->create([
+            $imagePath = '/' . $request->file('image')->store('history', 'public');
+
+            $blocks = $request->blocks;
+            foreach ($request->blocks as $indexBlock => $block) {
+                foreach ($block['images'] as $indexImage => $image) {
+                    $imagePath = '/' . $image->store('history', 'public');
+                    $blocks[$indexBlock]['images'][$indexImage] = $imagePath;
+                }
+            }
+
+            History::query()->create([
+                'archived' => false,
                 'type' => $request->type,
                 'views' => 0,
                 'title' => $request->title,
                 'date' => $request->date,
-                'image_url' => $request->image_url,
+                'image_url' => $imagePath,
                 'type_of_history' => $request->type_of_history,
                 'user_id' => $userId,
+                'blocks' => json_encode($blocks),
             ])->id;
 
-            foreach ($request->blocks as $block) {
-                HistoryBlock::query()->create([
-                    'text' => $block->title,
-                    'images_url' => $block->images_url,
-                    'youtube_url' => $block->youtube_url,
-                    'history_id' => $historyId,
-                ]);
-            }
         } catch (Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }

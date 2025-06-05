@@ -12,12 +12,14 @@ return new class extends Migration {
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->boolean('archived');
             $table->string('type');
             $table->unsignedInteger('views');
             $table->string('title');
             $table->date('date');
             $table->string('image_url');
             $table->string('type_of_history');
+            $table->json('blocks');
             $table->foreignUuid('user_id')->constrained('users');
             $table->timestamps();
         });

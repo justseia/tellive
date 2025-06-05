@@ -16,7 +16,10 @@
                     </div>
                     <div class="flex flex-col p-[20px] md:p-[30px] bg-white rounded-[10px]">
                         <div class="flex flex-col gap-[40px]">
-                            <x-forms.text name="name_banner" title="Назовите баннер" placeholder="Пример: Баннер №4"/>
+                            <div class="flex flex-col gap-[10px]">
+                                <x-forms.text name="name_banner" title="Назовите баннер" placeholder="Пример: Баннер №4"/>
+                                <div class="font-medium text-[14px] text-[#9EA9B7]">Это название видите только вы</div>
+                            </div>
                             <x-forms.text name="title" title="Напишите заголовок баннера" placeholder="Заголовок"/>
                             <x-forms.text name="text_banner" title="Напишите описание для баннера" placeholder="Описание баннера"/>
                             <x-forms.image name="image" title="Загрузите фото на обложку" placeholder="Загрузить"/>

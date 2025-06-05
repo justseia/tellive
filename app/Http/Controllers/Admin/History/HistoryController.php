@@ -69,7 +69,7 @@ class HistoryController extends Controller
         try {
             $userId = auth()->id();
 
-            $imagePath = '/' . $request->file('image')->store('history', 'public');
+            $mainImagePath = '/' . $request->file('image')->store('history', 'public');
 
             $blocks = $request->blocks;
             foreach ($request->blocks as $indexBlock => $block) {
@@ -85,12 +85,11 @@ class HistoryController extends Controller
                 'views' => 0,
                 'title' => $request->title,
                 'date' => $request->date,
-                'image_url' => $imagePath,
+                'image_url' => $mainImagePath,
                 'type_of_history' => $request->type_of_history,
                 'user_id' => $userId,
                 'blocks' => json_encode($blocks),
             ])->id;
-
         } catch (Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }

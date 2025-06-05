@@ -10,10 +10,10 @@
                 <a href="{{ route('admin.client.create') }}">
                     <div class="h-[40px] rounded-[6px] bg-[#2272DD] px-[16px] md:px-[20px] flex gap-[12px] items-center">
                         @include('components.icons.plus', ['color' => '#FFFFFF'])
-                        <div class="text-white text-[15px] font-medium text-nowrap">Добавить клиента</div>
+                        <div class="text-white text-[14px] font-medium text-nowrap">Добавить клиента</div>
                     </div>
                 </a>
-                <form action="{{ route('admin.client.index') }}" method="GET" class="flex items-center gap-[10px]">
+                <form action="{{ route('admin.client.index') }}" method="GET" class="flex items-center gap-[10px] text-[14px]">
                     <select name="last_payment_partnership" onchange="this.form.submit()" class="border border-[#E8E8E8] rounded-[6px] pl-[16px] md:pl-[20px] pr-[32px] md:pr-[40px]">
                         <option value="" disabled selected hidden>Оплата</option>
                         <option value="week_before_payment" {{ request('last_payment_partnership') == 'week_before_payment' ? 'selected' : '' }}>Неделя до оплаты</option>
@@ -35,7 +35,7 @@
                 </form>
                 <a href="{{ route('admin.client.index') }}">
                     <div class="h-[40px] rounded-[6px] bg-transparent px-[10px] flex gap-[12px] items-center">
-                        <div class="text-[#2272DD] text-[15px] font-normal text-nowrap">Сбросить фильтры</div>
+                        <div class="text-[#2272DD] text-[14px] font-normal text-nowrap">Сбросить фильтры</div>
                     </div>
                 </a>
             </div>

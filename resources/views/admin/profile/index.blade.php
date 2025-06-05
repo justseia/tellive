@@ -26,16 +26,16 @@
         </div>
         <div class="flex flex-col">
             <div class="flex gap-[12px] mb-[20px]">
-                <a href="{{ $siteUrl }}" class="bg-[#2272DD] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-white">
+                <a href="{{ $siteUrl }}" class="bg-[#2272DD] px-[18px] h-[37px] flex items-center rounded-[4px] font-medium text-[14px] text-white">
                     Открыть сайт
                 </a>
                 @subdomain
-                    <a href="{{ route('admin.profile.edit') }}" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
+                    <a href="{{ route('admin.profile.edit') }}" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] h-[37px] flex items-center rounded-[4px] font-medium text-[14px] text-[#0B131D]">
                         Редактировать
                     </a>
                 @else
                     <div x-data="{ writeMeOpen: false }">
-                        <button @click="writeMeOpen = true" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] py-[10px] rounded-[4px] font-medium text-[14px] text-[#0B131D]">
+                        <button @click="writeMeOpen = true" class="border border-[#E8E8E8] bg-[#F9F9F9] px-[18px] h-[37px] flex items-center rounded-[4px] font-medium text-[14px] text-[#0B131D]">
                             Написать мне
                         </button>
                         <x-admin.modal :key="'writeMeOpen'">

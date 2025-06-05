@@ -16,7 +16,10 @@
                     </div>
                     <div class="flex flex-col p-[20px] md:p-[30px] bg-white rounded-[10px]">
                         <div class="flex flex-col gap-[40px]">
-                            <x-forms.text name="name_review" title="Назовите отзыв" placeholder="Пример: Баннер №4"/>
+                            <div class="flex flex-col gap-[10px]">
+                                <x-forms.text name="name_review" title="Назовите отзыв" placeholder="Пример: Баннер №4" :showExample="false"/>
+                                <div class="font-medium text-[14px] text-[#9EA9B7]">Это название видите только вы</div>
+                            </div>
                             <x-forms.text name="title" title="Напишите заголовок отзыва" placeholder="Заголовок"/>
                             <x-forms.text name="text_review" title="Напишите текст для отзыва" placeholder="Текст отзыва"/>
                             <x-forms.text name="countries" title="В каких странах были клиенты?" placeholder="Пример: Франция • Италия • Испания"/>

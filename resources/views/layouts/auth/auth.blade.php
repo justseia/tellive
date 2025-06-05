@@ -14,14 +14,27 @@
 
         @yield('content')
 
-        @if ($errors->has('error'))
+        @if ($errors->any())
             <div
                 x-data="{ show: true }"
                 x-init="setTimeout(() => show = false, 3000)"
                 x-show="show"
                 class="fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow"
             >
-                {{ $errors->first('error') }}
+                @foreach($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div
+                x-data="{ show: true }"
+                x-init="setTimeout(() => show = false, 3000)"
+                x-show="show"
+                class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow"
+            >
+                {{ session('success') }}
             </div>
         @endif
 

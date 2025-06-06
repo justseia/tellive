@@ -69,7 +69,7 @@ class HistoryController extends Controller
         try {
             $userId = auth()->id();
 
-            $mainImagePath = '/' . $request->file('image')->store('history', 'public');
+            $mainImagePath = '/storage/' . $request->file('image')->store('history', 'public');
 
             $blocks = $request->blocks;
             foreach ($request->blocks as $indexBlock => $block) {

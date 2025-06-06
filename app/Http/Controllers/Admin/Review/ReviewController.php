@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Review;
 
 use App\Enums\TypeTravelEnum;
-use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Exception;
@@ -36,15 +35,15 @@ class ReviewController extends Controller
             ->with(compact('typeTravelEnum'));
     }
 
-    public function store(Request $request, ImageHelper $imageHelper): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         try {
-            $imageUrl = $imageHelper->upload($request->file('image'));
+            $imagePath = '/storage/' . $request->file('image')->store('review', 'public');
 
             Review::query()->create([
                 'title' => $request->title,
                 'description' => $request->description,
-                'image_url' => $imageUrl,
+                'image_url' => $imagePath,
                 'type_of_travel' => $request->type_of_travel,
                 'youtube_url' => $request->youtube_url,
                 'user_id' => auth()->id(),

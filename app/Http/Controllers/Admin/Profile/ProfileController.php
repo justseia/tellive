@@ -83,7 +83,7 @@ class ProfileController extends Controller
             if (!$request->hasFile('avatar')) {
                 unset($validated['avatar']);
             } else {
-                $imagePath = '/' . $request->file('avatar')->store('banners', 'public');
+                $imagePath = '/storage/' . $request->file('avatar')->store('banners', 'public');
                 $validated['avatar'] = $imagePath;
             }
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Video;
 
-use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Video;
 use Exception;
@@ -30,14 +29,14 @@ class VideoController extends Controller
         return view('admin.video.create');
     }
 
-    public function store(Request $request, ImageHelper $imageHelper): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         try {
-            $imageUrl = $imageHelper->upload($request->file('image'));
+            $imagePath = '/storage/' . $request->file('image')->store('review', 'public');
 
             Video::query()->create([
                 'title' => $request->title,
-                'image_url' => $imageUrl,
+                'image_url' => $imagePath,
                 'youtube_url' => $request->youtube_url,
                 'user_id' => auth()->id(),
             ]);

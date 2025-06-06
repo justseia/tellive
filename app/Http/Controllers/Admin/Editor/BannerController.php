@@ -51,7 +51,7 @@ class BannerController extends Controller
             ]);
 
             if ($request->hasFile('image')) {
-                $imagePath = '/' . $request->file('image')->store('banners', 'public');
+                $imagePath = '/storage/' . $request->file('image')->store('banners', 'public');
             }
 
             $banner->update([
@@ -87,7 +87,7 @@ class BannerController extends Controller
                 'url_button' => ['required', 'url', 'max:255'],
             ]);
 
-            $imagePath = '/' . $request->file('image')->store('banners', 'public');
+            $imagePath = '/storage/' . $request->file('image')->store('banners', 'public');
 
             $maxIndex = LandingBanner::max('index') ?? 0;
             LandingBanner::query()->create([

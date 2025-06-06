@@ -51,7 +51,7 @@ class ReviewController extends Controller
             ]);
 
             if ($request->hasFile('image')) {
-                $imagePath = '/' . $request->file('image')->store('reviews', 'public');
+                $imagePath = '/storage/' . $request->file('image')->store('reviews', 'public');
             }
 
             $review->update([
@@ -87,7 +87,7 @@ class ReviewController extends Controller
                 'date' => ['required', 'date'],
             ]);
 
-            $imagePath = '/' . $request->file('image')->store('reviews', 'public');
+            $imagePath = '/storage/' . $request->file('image')->store('reviews', 'public');
 
             $maxIndex = LandingReview::max('index') ?? 0;
             LandingReview::query()->create([

@@ -1,4 +1,7 @@
-@php use DragonCode\Support\Facades\Helpers\Str; @endphp
+@php
+    use Illuminate\Support\Str;
+@endphp
+
 @extends('layouts.admin.app')
 
 @section('content')

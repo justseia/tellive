@@ -1,5 +1,5 @@
 @php
-    use DragonCode\Support\Facades\Helpers\Str;
+    use Illuminate\Support\Str;
 @endphp
 
 @extends('layouts.admin.app')

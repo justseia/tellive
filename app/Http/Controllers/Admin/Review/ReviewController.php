@@ -38,7 +38,7 @@ class ReviewController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-            $imagePath = '/storage/' . $request->file('image')->store('review', 'public');
+            $imagePath = '/storage/' . $request->file('image')->store('public');
 
             Review::query()->create([
                 'title' => $request->title,

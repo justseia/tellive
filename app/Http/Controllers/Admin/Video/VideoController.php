@@ -32,7 +32,7 @@ class VideoController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-            $imagePath = '/storage/' . $request->file('image')->store('review', 'public');
+            $imagePath = '/storage/' . $request->file('image')->store('public');
 
             Video::query()->create([
                 'title' => $request->title,
